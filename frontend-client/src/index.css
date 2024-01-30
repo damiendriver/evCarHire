@@ -25,3 +25,18 @@ code {
   color: white !important;
   font-weight: bold;
 }
+
+.singleimg{
+  height:200px;
+  width:100% !important;
+  border-radius: 5px !important;
+}
+.btn{
+  background-color: teal !important;
+  color: white !important;
+  box-shadow: none !important;
+}
+
+.box {
+  box-shadow:rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
