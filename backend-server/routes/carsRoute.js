@@ -13,4 +13,16 @@ router.get("/getallcars", async(req, res) => {
     }
 });
 
+router.post("/getcarbyid", async(req, res) => {
+
+    const carid = req.body.carid
+
+    try {
+        const car = await Car.findOne({_id : carid})
+        res.send(car);
+    } catch (error) {
+        return res.status(400).json({ message: error });
+    }
+});
+
 module.exports = router;

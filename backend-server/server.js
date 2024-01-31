@@ -5,6 +5,8 @@ const app = express();
 const dbConfig = require("./db")
 const carsRoute = require("./routes/carsRoute")
 
+app.use(express.json())
+
 app.use("/api/cars", carsRoute)
 
 const port = process.env.PORT || 5000;
