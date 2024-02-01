@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Car from "../components/Car";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 function Homepage() {
   const [cars, setcars] = useState([]);
@@ -32,9 +34,9 @@ function Homepage() {
     <div className="container">
       <div className="row justify-content-center mt-5"></div>
       {loading ? (
-        <h1>Loading....</h1>
+        <Loading />
       ) : error ? (
-        <h1>Error</h1>
+        <Error />
       ) : (
         cars.map((car) => {
           return (

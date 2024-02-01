@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const mongoURL = process.env.MONGO_URI;
 
-mongoose.connect(mongoURL , {useUnifiedTopology : true , useNewUrlParser:true})
+mongoose.connect(mongoURL , {})
 
 var connection = mongoose.connection
 

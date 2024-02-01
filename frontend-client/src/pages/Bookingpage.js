@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 function Bookingpage() {
   const { carid } = useParams();
@@ -31,9 +33,9 @@ function Bookingpage() {
   return (
     <div className="m-5">
       {loading ? (
-        <h1>Loading....</h1>
+        <Loading/>
       ) : error ? (
-        <h1>Error...</h1>
+        <Error />
       ) : (
         <div className="row justify-content-center mt-5 box">
           <div className="col-md-6">
