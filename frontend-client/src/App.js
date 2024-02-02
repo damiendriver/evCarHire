@@ -1,6 +1,6 @@
 import "./App.css";
 import NavBar from "./components/Navbar";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import Bookingpage from "./pages/Bookingpage";
 import Aboutpage from "./pages/Aboutpage";
@@ -17,6 +17,8 @@ function App() {
         <NavBar />
         <Routes>
           <Route path="/home" element={<Homepage />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="*" element={<Navigate to="/" />} />
           <Route path="/book/:carid" element={<Bookingpage />} />
           <Route path="/about" element={<Aboutpage />} />
           <Route path="/map" element={<Mappage />} />

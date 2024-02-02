@@ -48,8 +48,8 @@ code {
 }
 
 .rotaimg{
-  height: 400px ;
-  border-radius: 5px;
+  height: 300px !important;
+  border-radius: 10px !important;
 }
 .dropdown-menu{
   background-color: teal !important;

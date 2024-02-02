@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function Registerpage() {
   const [name, setname] = useState("");
@@ -6,15 +7,21 @@ function Registerpage() {
   const [password, setpassword] = useState("");
   const [confirm, setconfirm] = useState("");
 
-  function register() {
+  async function register() {
     if (password === confirm) {
-      const user = {
+      const member = {
         name,
         email,
         password,
         confirm,
-      };
-      console.log(user);
+      }
+
+      try {
+        const result = await axios.post("/api/member/register", member);
+        console.log(result.data);
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       alert("Passwords do not match. Please double check and try again.");
     }
@@ -62,7 +69,7 @@ function Registerpage() {
                 setconfirm(e.target.value);
               }}
             />
-            <button className="btn btn-primary mt-3 " onClick={register}>
+            <button className="btn btn-primary mt-3" onClick={register}>
               Register
             </button>
           </div>
