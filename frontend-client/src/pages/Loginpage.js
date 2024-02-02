@@ -17,9 +17,6 @@ function Loginpage() {
     } catch (error) {
       console.log(error)
     }
-
-
-    console.log(member)
   }
 
   return (
