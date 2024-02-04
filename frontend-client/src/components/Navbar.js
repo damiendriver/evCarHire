@@ -1,13 +1,22 @@
 import React from "react";
 
 function NavBar() {
+  const member = JSON.parse(localStorage.getItem("currentMember"));
+  function logout() {
+    localStorage.removeItem("currentMember");
+    window.location.href = "/login";
+  }
+  console.log(localStorage.getItem("currentMember"));
+  console.log(member?.data?.name);
+  console.log("Member Object:", member);
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <div className="navbar-brand">
             <a className="navbar-brand" href="/home">
-            <i className="bi bi-plugin bi-2x"></i>
+              <i className="bi bi-plugin bi-2x"></i>
             </a>
           </div>
 
@@ -20,21 +29,55 @@ function NavBar() {
           </div>
 
           <div className="ms-auto me-5">
-            <div className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Login / Register
-              </a>
-              <ul className="dropdown-menu">
-                <NavItem link="/login" text="Login" dropdownItem />
-                <NavItem link="/register" text="Register" dropdownItem />
-              </ul>
-            </div>
+            {member ? (
+              <>
+                <div className="dropdown">
+                  <button
+                    className="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <i class="bi bi-person-fill"> </i> {member.data.name}
+                  </button>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <a className="dropdown-item" href="#">
+                      Reservations
+                    </a>
+                    <a className="dropdown-item" href="#" onClick={logout}>
+                      Logout
+                    </a>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="dropdown">
+                  <button
+                    className="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Login / Register
+                  </button>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <NavItem link="/login" text="Login" dropdownItem />
+                    <NavItem link="/register" text="Register" dropdownItem />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </nav>

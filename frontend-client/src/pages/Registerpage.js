@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
+import Success from "../components/Success";
 
 function Registerpage() {
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [confirm, setconfirm] = useState("");
+  const [loading, setloading] = useState(false);
+  const [error, seterror] = useState();
+  const [success, setsuccess] = useState();
 
   async function register() {
     if (password === confirm) {
@@ -14,13 +20,25 @@ function Registerpage() {
         email,
         password,
         confirm,
-      }
+      };
 
       try {
+        setloading(true);
         const result = await axios.post("/api/member/register", member);
+        setloading(false);
+        setsuccess(true);
+        
+        // after successful register clear input fields
+        setname("");
+        setemail("");
+        setpassword("");
+        setconfirm("");
+
         console.log(result.data);
       } catch (error) {
         console.log(error);
+        setloading(false);
+        seterror(true);
       }
     } else {
       alert("Passwords do not match. Please double check and try again.");
@@ -31,6 +49,9 @@ function Registerpage() {
     <div className="m-5">
       <div className="row justify-content-center mt-5">
         <div className="col-md-5 box">
+          {loading && <Loading />}
+          {error && <Error />}
+          {success && <Success message="Registration Successful" />}
           <div>
             <h1>Register</h1>
             <input

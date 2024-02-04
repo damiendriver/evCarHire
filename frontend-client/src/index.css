@@ -53,8 +53,14 @@ code {
 }
 .dropdown-menu{
   background-color: teal !important;
+ 
 }
 input{
   margin-top: 10px;
   border: 1pt solid teal !important;
+}
+
+.dropdown-item{
+  background-color: teal !important;
+  color: whitesmoke !important;
 }
