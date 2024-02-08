@@ -3,12 +3,15 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+import moment from "moment";
 
 function Bookingpage() {
   const { carid, pickupdate, returndate } = useParams();
   const [loading, setloading] = useState(true);
   const [error, seterror] = useState();
   const [car, setcar] = useState();
+
+  const totaldays = moment(returndate, 'DD-MM-YYYY').diff(moment(pickupdate, 'DD-MM-YYYY'), 'days');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,7 +63,7 @@ function Bookingpage() {
             <div style={{ textAlign: "right" }}>
               <h2>Payment Amount</h2>
               <hr />
-              <p>Total Days: </p>
+              <p>Total Days: {totaldays}</p>
               <p>Daily Price: {car.priceAmount} </p>
               <p>Total Price: </p>
             </div>

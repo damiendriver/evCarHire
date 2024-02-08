@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Carousel } from "react-bootstrap";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 function Car({ car, pickupdate, returndate }) {
   const [show, setShow] = useState(false);
@@ -19,7 +19,7 @@ function Car({ car, pickupdate, returndate }) {
 
         <div>
           <Link to={`/book/${car._id}/${pickupdate}/${returndate}`}>
-          <button className="btn btn-primary m-3">Book Now</button>
+            <button className="btn btn-primary m-3">Book Now</button>
           </Link>
           <button className="btn btn-primary" onClick={handleShow}>
             More Car Details
@@ -46,9 +46,9 @@ function Car({ car, pickupdate, returndate }) {
             })}
           </Carousel>
           <b>
-          <p>Vehicle Acriss: {car.acriss}</p>
-          <p>Vehicle Group: {car.carGroup}</p>
-          <p>Vehicle Battery: {car.batteryType}</p>
+            <p>Vehicle Acriss: {car.acriss}</p>
+            <p>Vehicle Group: {car.carGroup}</p>
+            <p>Vehicle Battery: {car.batteryType}</p>
           </b>
         </Modal.Body>
         <Modal.Footer>

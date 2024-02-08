@@ -40,17 +40,22 @@ function Homepage() {
 
   function filterByDate(dates) {
     console.log("Selected dates:", dates);
-  
+
     // Ensure dates array contains valid dates
     if (Array.isArray(dates) && dates.length === 2) {
-      console.log("First selected date:", moment(dates[0].$d).format("DD-MM-YYYY"));
-      console.log("Second selected date:", moment(dates[1].$d).format("DD-MM-YYYY"));
-  
+      console.log(
+        "First selected date:",
+        moment(dates[0].$d).format("DD-MM-YYYY")
+      );
+      console.log(
+        "Second selected date:",
+        moment(dates[1].$d).format("DD-MM-YYYY")
+      );
+
       setpickupdate(moment(dates[0].$d).format("DD-MM-YYYY"));
       setreturndate(moment(dates[1].$d).format("DD-MM-YYYY"));
     }
   }
-  
 
   return (
     <div className="container">
