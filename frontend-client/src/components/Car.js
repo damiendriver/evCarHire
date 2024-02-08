@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Button, Carousel } from "react-bootstrap";
 import {Link} from "react-router-dom"
 
-function Car({ car }) {
+function Car({ car, pickupdate, returndate }) {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -18,7 +18,7 @@ function Car({ car }) {
         <p>Battery:{car.batteryType}</p>
 
         <div>
-          <Link to={`/book/${car._id}`}>
+          <Link to={`/book/${car._id}/${pickupdate}/${returndate}`}>
           <button className="btn btn-primary m-3">Book Now</button>
           </Link>
           <button className="btn btn-primary" onClick={handleShow}>

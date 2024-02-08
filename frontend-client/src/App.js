@@ -19,7 +19,7 @@ function App() {
           <Route path="/home" element={<Homepage />} />
           <Route path="/" element={<Homepage />} />
           <Route path="*" element={<Navigate to="/" />} />
-          <Route path="/book/:carid" element={<Bookingpage />} />
+          <Route path="/book/:carid/:pickupdate/:returndate" element={<Bookingpage />} />
           <Route path="/about" element={<Aboutpage />} />
           <Route path="/map" element={<Mappage />} />
           <Route path="/terms" element={<Termspage />} />

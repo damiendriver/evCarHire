@@ -5,7 +5,7 @@ import Loading from "../components/Loading";
 import Error from "../components/Error";
 
 function Bookingpage() {
-  const { carid } = useParams();
+  const { carid, pickupdate, returndate } = useParams();
   const [loading, setloading] = useState(true);
   const [error, seterror] = useState();
   const [car, setcar] = useState();
@@ -33,7 +33,7 @@ function Bookingpage() {
   return (
     <div className="m-5">
       {loading ? (
-        <Loading/>
+        <Loading />
       ) : error ? (
         <Error />
       ) : (
@@ -47,25 +47,25 @@ function Bookingpage() {
             />
           </div>
           <div className="col-md-6">
-            <div style={{textAlign: 'right'}}>
-            <b>
-              <h2>Booking Information</h2>
-              <hr />
-              <p>Car Description: </p>
-              <p>Battery Type: </p>
-              <p>Pick Up Date: </p>
-              <p>Return Date: </p>
-            </b>
+            <div style={{ textAlign: "right" }}>
+              <b>
+                <h2>Booking Information</h2>
+                <hr />
+                <p>Car Description: </p>
+                <p>Battery Type: </p>
+                <p>Pick Up Date: {pickupdate}</p>
+                <p>Return Date: {returndate}</p>
+              </b>
             </div>
-            <div style={{textAlign: 'right'}}>
+            <div style={{ textAlign: "right" }}>
               <h2>Payment Amount</h2>
               <hr />
               <p>Total Days: </p>
               <p>Daily Price: {car.priceAmount} </p>
               <p>Total Price: </p>
             </div>
-            <div style={{float: 'right'}}>
-            <button className="btn btn-primary m-3">Confirm</button>
+            <div style={{ float: "right" }}>
+              <button className="btn btn-primary m-3">Confirm</button>
             </div>
           </div>
         </div>

@@ -29,6 +29,12 @@ code {
   font-weight: bold;
 }
 
+.nav-link:hover{
+  background-color: white;
+  color: teal;
+  font-weight: bold;
+}
+
 .singleimg{
   height:200px;
   width:100% !important;
