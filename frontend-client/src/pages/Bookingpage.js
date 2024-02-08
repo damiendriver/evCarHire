@@ -31,7 +31,7 @@ function Bookingpage() {
     fetchData();
 
     return () => {};
-  }, [carid]);
+  }, [carid, pickupdate, returndate]);
 
   return (
     <div className="m-5">
@@ -65,7 +65,7 @@ function Bookingpage() {
               <hr />
               <p>Total Days: {totaldays}</p>
               <p>Daily Price: {car.priceAmount} </p>
-              <p>Total Price: </p>
+              <p>Total Price: {totaldays * car.priceAmount}</p>
             </div>
             <div style={{ float: "right" }}>
               <button className="btn btn-primary m-3">Confirm</button>
