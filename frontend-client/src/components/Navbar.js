@@ -40,7 +40,7 @@ function NavBar() {
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
-                    <i class="bi bi-person-fill"> </i> {member.data.name}
+                    <i className="bi bi-person-fill"> </i> {member.data.name}
                   </button>
                   <div
                     className="dropdown-menu"

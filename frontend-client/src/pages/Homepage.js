@@ -20,7 +20,7 @@ function Homepage() {
     const fetchData = async () => {
       try {
         setloading(true);
-        const data = (await axios.get("/api/cars/getallcars")).data;
+        const data = (await axios.get("/api/car/getallcars")).data;
 
         setcars(data);
         setloading(false);

@@ -11,13 +11,18 @@ function Bookingpage() {
   const [error, seterror] = useState();
   const [car, setcar] = useState();
 
-  const totaldays = moment(returndate, 'DD-MM-YYYY').diff(moment(pickupdate, 'DD-MM-YYYY'), 'days');
+  const totaldays = moment(returndate, "DD-MM-YYYY").diff(
+    moment(pickupdate, "DD-MM-YYYY"),
+    "days"
+  );
+  const [totalprice, settotalprice] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setloading(true);
-        const data = (await axios.post("/api/cars/getcarbyid", { carid })).data;
+        const data = (await axios.post("/api/car/getcarbyid", { carid })).data;
+        settotalprice(data.priceAmount * totaldays);
 
         setcar(data);
         setloading(false);
@@ -31,7 +36,22 @@ function Bookingpage() {
     fetchData();
 
     return () => {};
-  }, [carid, pickupdate, returndate]);
+  }, [carid, pickupdate, returndate, totaldays]);
+
+  async function bookCar() {
+    const bookingDetails = {
+      car,
+      member: JSON.parse(localStorage.getItem("currentMember")),
+      pickupdate,
+      returndate,
+      totaldays,
+      totalprice,
+    };
+
+    try {
+      const result = await axios.post("/api/booking/bookcar", bookingDetails);
+    } catch (error) {}
+  }
 
   return (
     <div className="m-5">
@@ -65,10 +85,12 @@ function Bookingpage() {
               <hr />
               <p>Total Days: {totaldays}</p>
               <p>Daily Price: {car.priceAmount} </p>
-              <p>Total Price: {totaldays * car.priceAmount}</p>
+              <p>Total Price: {totalprice}</p>
             </div>
             <div style={{ float: "right" }}>
-              <button className="btn btn-primary m-3">Confirm</button>
+              <button className="btn btn-primary m-3" onClick={bookCar}>
+                Confirm
+              </button>
             </div>
           </div>
         </div>
@@ -78,3 +100,4 @@ function Bookingpage() {
 }
 
 export default Bookingpage;
+

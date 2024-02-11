@@ -1,6 +1,6 @@
 const mongoose = require(`mongoose`);
 
-const carsSchema = mongoose.Schema({
+const carSchema = mongoose.Schema({
   makeModel: {
     type: String,
     required: true,
@@ -25,6 +25,10 @@ const carsSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  currentbookings: []
+},
+{
+timestamps: true
 });
 
-module.exports = mongoose.model(`Car`, carsSchema);
+module.exports = mongoose.model(`Car`, carSchema);

@@ -5,11 +5,13 @@ const app = express();
 const dbConfig = require("./db")
 const carsRoute = require("./routes/carsRoute")
 const membersRoute = require("./routes/membersRoute")
+const bookingsRoute = require('./routes/bookingsRoute')
 
 app.use(express.json())
 
-app.use("/api/cars", carsRoute)
+app.use("/api/car", carsRoute)
 app.use("/api/member", membersRoute)
+app.use("/api/booking", bookingsRoute)
 
 const port = process.env.PORT || 5000;
 
