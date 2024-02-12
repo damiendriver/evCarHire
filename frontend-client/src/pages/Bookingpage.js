@@ -41,16 +41,21 @@ function Bookingpage() {
   async function bookCar() {
     const bookingDetails = {
       car,
-      member: JSON.parse(localStorage.getItem("currentMember")),
+      memberid: JSON.parse(localStorage.getItem("currentMember")).data._id,
       pickupdate,
       returndate,
       totaldays,
       totalprice,
     };
+    console.log("Booking Details:", bookingDetails);
 
     try {
+      console.log("Sending POST request to /api/booking/bookcar...");
       const result = await axios.post("/api/booking/bookcar", bookingDetails);
-    } catch (error) {}
+      console.log("Response:", result.data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
   }
 
   return (

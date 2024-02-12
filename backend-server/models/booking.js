@@ -4,44 +4,44 @@ const bookingSchema = mongoose.Schema(
   {
     car: {
       type: String,
-      required: true,
+      required: true
     },
     carid: {
       type: String,
-      required: true,
+      required: true
     },
     memberid: {
       type: String,
-      required: true,
+      required: true
     },
     pickupdate: {
       type: String,
-      required: true,
+      required: true
     },
     returndate: {
       type: String,
-      required: true,
+      required: true
     },
-    totalamount: {
+    totalprice: {
       type: Number,
-      required: true,
+      required: true
     },
     totaldays: {
       type: Number,
-      required: true,
+      required: true
     },
     transactionid: {
       type: String,
-      required: true,
+      required: true
     },
     status: {
       type: String,
       required: true,
-      default: "reserved",
+      default: "reserved"
     },
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 );
 

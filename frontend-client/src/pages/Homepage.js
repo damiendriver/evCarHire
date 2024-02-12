@@ -5,7 +5,7 @@ import Loading from "../components/Loading";
 import Error from "../components/Error";
 import "antd/dist/reset.css";
 import moment from "moment";
-import { DatePicker, Space } from "antd";
+import { DatePicker } from "antd";
 
 const { RangePicker } = DatePicker;
 

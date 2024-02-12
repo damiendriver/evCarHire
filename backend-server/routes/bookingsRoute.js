@@ -3,8 +3,9 @@ const router = express.Router();
 const Booking = require("../models/booking");
 
 router.post("/bookcar", async (req, res) => {
+  console.log(req.body);
   const { car, memberid, pickupdate, returndate, totaldays, totalprice } =
-    req.body
+    req.body;
 
   try {
     const newbooking = new Booking({
