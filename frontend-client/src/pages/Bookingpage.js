@@ -79,8 +79,8 @@ function Bookingpage() {
               <b>
                 <h2>Booking Information</h2>
                 <hr />
-                <p>Car Description: </p>
-                <p>Battery Type: </p>
+                <p>Drivers Name: {JSON.parse(localStorage.getItem('currentMember')).data.name}</p>
+                <p>Battery Type: {car.batteryType}</p>
                 <p>Pick Up Date: {pickupdate}</p>
                 <p>Return Date: {returndate}</p>
               </b>

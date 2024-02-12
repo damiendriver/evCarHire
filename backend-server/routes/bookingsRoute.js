@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Booking = require("../models/booking");
+const Car = require("../models/car");
 
 router.post("/bookcar", async (req, res) => {
   console.log(req.body);
@@ -17,14 +18,26 @@ router.post("/bookcar", async (req, res) => {
       totaldays,
       totalprice,
       transactionid: "1234",
-    })
+    });
 
     const booking = await newbooking.save();
-    res.send('Your Car has been Reserved');
+
+    const carstatus = await Car.findOne({ _id: car._id });
+
+    carstatus.currentbookings.push({
+      bookingid: booking._id,
+      pickupdate: pickupdate,
+      returndate: returndate,
+      memberid: memberid,
+      status: booking.status,
+    });
+
+    await carstatus.save();
+
+    res.send("Your Car has been Reserved");
   } catch (error) {
     return res.status(400).json({ error });
   }
 });
 
 module.exports = router;
-
