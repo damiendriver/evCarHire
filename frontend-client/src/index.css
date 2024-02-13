@@ -35,7 +35,7 @@ code {
   font-weight: bold;
 }
 
-.singleimg{
+.card-img-top{
   height:200px;
   width:100% !important;
   border-radius: 5px !important;
@@ -48,9 +48,9 @@ code {
 
 .box {
   box-shadow: rgba(0, 128, 128, 0.3) 0px 0px 0px 3px;
-  margin-top: 15px;
+  margin-top: 10px;
   border-radius: 5px;
-  padding: 20px;
+  padding: 5px;
 }
 
 .rotaimg{
