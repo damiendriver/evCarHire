@@ -20,9 +20,11 @@ function Car({ car, pickupdate, returndate }) {
         <p className="card-text">Acriss: {car.acriss}</p>
         <p className="card-text">Battery: {car.batteryType}</p>
         <div>
-          <Link to={`/book/${car._id}/${pickupdate}/${returndate}`}>
-            <button className="btn btn-primary m-3">Book Now</button>
-          </Link>
+          {pickupdate && returndate && (
+            <Link to={`/book/${car._id}/${pickupdate}/${returndate}`}>
+              <button className="btn btn-primary m-3">Book Now</button>
+            </Link>
+          )}
           <button className="btn btn-primary" onClick={handleShow}>
             More Car Details
           </button>

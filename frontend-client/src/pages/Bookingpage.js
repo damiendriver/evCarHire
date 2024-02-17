@@ -105,4 +105,3 @@ function Bookingpage() {
 }
 
 export default Bookingpage;
-
