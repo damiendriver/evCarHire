@@ -13,8 +13,8 @@ function Homepage() {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [pickupdate, setPickupdate] = useState(null);
-  const [returndate, setReturndate] = useState(null);
+  const [pickupdate, setPickupdate] = useState();
+  const [returndate, setReturndate] = useState();
   const [matchcars, setMatchcars] = useState([]);
 
   useEffect(() => {
@@ -38,33 +38,33 @@ function Homepage() {
   function filterByDate(dates) {
     try {
       if (Array.isArray(dates) && dates.length === 2) {
-        setPickupdate(moment(dates[0].$d).format("DD-MM-YYYY"));
-        setReturndate(moment(dates[1].$d).format("DD-MM-YYYY"));
+        setPickupdate(moment(dates[0].$d).format("YYYY-MM-DD"));
+        setReturndate(moment(dates[1].$d).format("YYYY-MM-DD"));
       }
 
       var tempCars = [];
       for (const car of matchcars) {
         var availability = false;
-        if (car.currentbookings.length > 1) {
+        if (car.currentbookings.length > 0) {
           for (const booking of car.currentbookings) {
             if (
-              !moment(moment(dates[0].$d).format("DD-MM-YYYY")).isBetween(
+              !moment(moment(dates[0].$d).format("YYYY-MM-DD")).isBetween(
                 booking.pickupdate,
                 booking.returndate
               ) &&
-              !moment(moment(dates[1].$d).format("DD-MM-YYYY")).isBetween(
+              !moment(moment(dates[1].$d).format("YYYY-MM-DD")).isBetween(
                 booking.pickupdate,
                 booking.returndate
               )
             ) {
               if (
-                moment(dates[0].$d).format("DD-MM-YYYY") !==
+                moment(dates[0].$d).format("YYYY-MM-DD") !==
                   booking.pickupdate &&
-                moment(dates[0].$d).format("DD-MM-YYYY") !==
+                moment(dates[0].$d).format("YYYY-MM-DD") !==
                   booking.returndate &&
-                moment(dates[1].$d).format("DD-MM-YYYY") !==
+                moment(dates[1].$d).format("YYYY-MM-DD") !==
                   booking.pickupdate &&
-                moment(dates[1].$d).format("DD-MM-YYYY") !== booking.returndate
+                moment(dates[1].$d).format("YYYY-MM-DD") !== booking.returndate
               ) {
                 availability = true;
               }
@@ -79,11 +79,20 @@ function Homepage() {
     } catch (error) {}
   }
 
+  // Function to disable past dates
+  function disabledDate(current) {
+    return current && current < moment().endOf("day");
+  }
+
   return (
     <div className="container">
       <div className="row mt-5">
         <div className="col-md-3">
-          <RangePicker format="DD-MM-YYYY" onChange={filterByDate} />
+          <RangePicker
+            format="YYYY-MM-DD"
+            onChange={filterByDate}
+            disabledDate={disabledDate}
+          />
         </div>
       </div>
 
@@ -105,3 +114,4 @@ function Homepage() {
 }
 
 export default Homepage;
+

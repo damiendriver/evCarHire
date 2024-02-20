@@ -4,6 +4,8 @@ import axios from "axios";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 import moment from "moment";
+import StripeCheckout from "react-stripe-checkout";
+
 
 function Bookingpage() {
   const { carid, pickupdate, returndate } = useParams();
@@ -11,8 +13,8 @@ function Bookingpage() {
   const [error, seterror] = useState();
   const [car, setcar] = useState();
 
-  const totaldays = moment(returndate, "DD-MM-YYYY").diff(
-    moment(pickupdate, "DD-MM-YYYY"),
+  const totaldays = moment(returndate, "YYYY-MM-DD").diff(
+    moment(pickupdate, "YYYY-MM-DD"),
     "days"
   );
   const [totalprice, settotalprice] = useState();
@@ -38,7 +40,9 @@ function Bookingpage() {
     return () => {};
   }, [carid, pickupdate, returndate, totaldays]);
 
-  async function bookCar() {
+
+  async function onToken(token) {
+    console.log(token);
     const bookingDetails = {
       car,
       memberid: JSON.parse(localStorage.getItem("currentMember")).data._id,
@@ -46,6 +50,7 @@ function Bookingpage() {
       returndate,
       totaldays,
       totalprice,
+      token,
     };
     console.log("Booking Details:", bookingDetails);
 
@@ -79,7 +84,10 @@ function Bookingpage() {
               <b>
                 <h2>Booking Information</h2>
                 <hr />
-                <p>Drivers Name: {JSON.parse(localStorage.getItem('currentMember')).data.name}</p>
+                <p>
+                  Drivers Name:{" "}
+                  {JSON.parse(localStorage.getItem("currentMember")).data.name}
+                </p>
                 <p>Battery Type: {car.batteryType}</p>
                 <p>Pick Up Date: {pickupdate}</p>
                 <p>Return Date: {returndate}</p>
@@ -93,9 +101,14 @@ function Bookingpage() {
               <p>Total Price: {totalprice}</p>
             </div>
             <div style={{ float: "right" }}>
-              <button className="btn btn-primary m-3" onClick={bookCar}>
-                Confirm
-              </button>
+              <StripeCheckout
+                amount={totalprice * 100}
+                token={onToken}
+                currency="EUR"
+                stripeKey="pk_test_51Olh1nCck7o1Tqs2iZw12ToB859XvnE0af7sftdADqFP9VKmVjCBfVNflFWLfnhD1WCvYVmjVwRp06UU6qPDfVM800xsYLIHCo"
+              >
+                <button className="btn btn-primary m-3">Confirm & Pay</button>
+              </StripeCheckout>
             </div>
           </div>
         </div>
