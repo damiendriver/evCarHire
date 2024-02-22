@@ -62,7 +62,7 @@ router.post("/bookcar", async (req, res) => {
 
         await carstatus.save();
 
-        return res.send("Payment Successful. Your car is booked.");
+        return res.status(200).send("Payment Successful. Your car is booked.");
       } catch (error) {
         return res.status(400).json({ error });
       }

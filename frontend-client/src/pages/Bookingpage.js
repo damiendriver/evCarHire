@@ -5,13 +5,13 @@ import Loading from "../components/Loading";
 import Error from "../components/Error";
 import moment from "moment";
 import StripeCheckout from "react-stripe-checkout";
-
+import Swal from "sweetalert2";
 
 function Bookingpage() {
   const { carid, pickupdate, returndate } = useParams();
-  const [loading, setloading] = useState(true);
-  const [error, seterror] = useState();
-  const [car, setcar] = useState();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
+  const [car, setCar] = useState();
 
   const totaldays = moment(returndate, "YYYY-MM-DD").diff(
     moment(pickupdate, "YYYY-MM-DD"),
@@ -22,16 +22,16 @@ function Bookingpage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setloading(true);
+        setLoading(true);
         const data = (await axios.post("/api/car/getcarbyid", { carid })).data;
         settotalprice(data.priceAmount * totaldays);
 
-        setcar(data);
-        setloading(false);
+        setCar(data);
+        setLoading(false);
         console.log(data);
       } catch (error) {
-        setloading(false);
-        seterror(true);
+        setLoading(false);
+        setError(true);
       }
     };
 
@@ -39,7 +39,6 @@ function Bookingpage() {
 
     return () => {};
   }, [carid, pickupdate, returndate, totaldays]);
-
 
   async function onToken(token) {
     console.log(token);
@@ -55,11 +54,30 @@ function Bookingpage() {
     console.log("Booking Details:", bookingDetails);
 
     try {
+      setLoading(true);
       console.log("Sending POST request to /api/booking/bookcar...");
       const result = await axios.post("/api/booking/bookcar", bookingDetails);
       console.log("Response:", result.data);
+      setLoading(false);
+      Swal.fire({
+        title: "Booking Confirmed",
+        text: "You were Successful",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then((result) => {
+        if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
+          window.location.href = "/home";
+        }
+      });
     } catch (error) {
       console.error("Error:", error);
+      Swal.fire({
+        title: "Booking Failed",
+        text: "Please try again",
+        icon: "error",
+        confirmButtonText: "Try Again",
+      });
+      setLoading(false);
     }
   }
 
