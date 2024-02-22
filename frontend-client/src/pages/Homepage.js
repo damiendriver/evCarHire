@@ -17,6 +17,9 @@ function Homepage() {
   const [returndate, setReturndate] = useState();
   const [matchcars, setMatchcars] = useState([]);
 
+  const [searchKey, setSearchKey] = useState("");
+  const [batteryType, setBatteryType] = useState("all");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -84,9 +87,28 @@ function Homepage() {
     return current && current < moment().endOf("day");
   }
 
+  function filterBySearch() {
+    const tempCars = matchcars.filter((car) =>
+      car.makeModel.toLowerCase().includes(searchKey.toLowerCase())
+    );
+    setCars(tempCars);
+  }
+
+  function filterByBatteryType(e) {
+    setBatteryType(e);
+    if (e !== "all") {
+      const tempCars = matchcars.filter(
+        (car) => car.batteryType.toLowerCase() === e.toLowerCase()
+      );
+      setCars(tempCars);
+    } else {
+      setCars(matchcars);
+    }
+  }
+
   return (
     <div className="container">
-      <div className="row mt-5">
+      <div className="row mt-5 box">
         <div className="col-md-3">
           <RangePicker
             format="YYYY-MM-DD"
@@ -94,13 +116,38 @@ function Homepage() {
             disabledDate={disabledDate}
           />
         </div>
+        <div className="col-md-5">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search Cars"
+            value={searchKey}
+            onChange={(e) => {
+              setSearchKey(e.target.value);
+            }}
+            onKeyUp={filterBySearch}
+          />
+        </div>
+
+        <div className="col-md-3">
+          <select
+            className="form-control"
+            value={batteryType}
+            onChange={(e) => {
+              filterByBatteryType(e.target.value);
+            }}
+          >
+            <option value="all">All</option>
+            <option value="full electric">Full Electric</option>
+            <option value="hybrid">Hybrid</option>
+            <option value="plug-in-hybrid">Plug-in-Hybrid</option>
+          </select>
+        </div>
       </div>
 
       <div className="row justify-content-center mt-5">
         {loading ? (
           <Loading />
-        ) : error ? (
-          <Error />
         ) : (
           cars.map((car) => (
             <div key={car._id} className="col-md-4 mb-4">
@@ -114,4 +161,3 @@ function Homepage() {
 }
 
 export default Homepage;
-

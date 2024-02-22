@@ -61,12 +61,20 @@ code {
   background-color: teal !important;
  
 }
-input{
-  margin-top: 10px;
+input , select , .ant-picker{
+  box-shadow: none !important;
+  margin: 5px !important;
   border: 1pt solid teal !important;
+  width: 100% !important;
+  border-radius: 3px !important;
+  height: 40px !important;
 }
 
 .dropdown-item{
   background-color: teal !important;
   color: whitesmoke !important;
+}
+
+.ant-picker-input input{
+  border: none !important;
 }
