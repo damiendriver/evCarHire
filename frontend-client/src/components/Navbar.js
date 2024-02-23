@@ -46,6 +46,9 @@ function NavBar() {
                     className="dropdown-menu"
                     aria-labelledby="dropdownMenuButton"
                   >
+                    <a className="dropdown-item" href="/profile">
+                      Profile
+                    </a>
                     <a className="dropdown-item" href="#">
                       Reservations
                     </a>

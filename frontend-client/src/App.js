@@ -9,6 +9,7 @@ import Termspage from "./pages/Termspage";
 import Locationpage from "./pages/Locationpage";
 import Loginpage from "./pages/Loginpage";
 import Registerpage from "./pages/Registerpage";
+import Profilepage from "./pages/Profilepage";
 
 function App() {
   return (
@@ -24,8 +25,9 @@ function App() {
           <Route path="/map" element={<Mappage />} />
           <Route path="/terms" element={<Termspage />} />
           <Route path="/location" element={<Locationpage />} />
-          <Route path="/Login" element={<Loginpage />} />
-          <Route path="/Register" element={<Registerpage />} />
+          <Route path="/login" element={<Loginpage />} />
+          <Route path="/register" element={<Registerpage />} />
+          <Route path="/profile" element={<Profilepage />} />
         </Routes>
       </Router>
     </div>
