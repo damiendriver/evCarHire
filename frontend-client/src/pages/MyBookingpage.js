@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Tag, Tabs } from "antd";
 import axios from "axios";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
@@ -29,29 +28,34 @@ function MyBookingpage() {
   useEffect(() => {
     console.log("Component mounted or updated.");
     getbookingsbymemberid();
-  }, []); // Empty dependency array to run once on component mount
-
+  }, []); 
   useEffect(() => {
     console.log("Bookings updated:", bookings);
-  }, [bookings]); // Log whenever bookings change
+  }, [bookings]);
 
   return (
     <div>
-      {loading ? (
-        <Loading />
-      ) : error ? (
-        <Error message={error} />
-      ) : (
-        bookings.map((booking) => (
-          <div key={booking._id}>
-            <h1>{booking.car}</h1>
-            <h1>{booking._id}</h1>
-          </div>
-        ))
-      )}
+      <div>
+        {loading ? (
+          <Loading />
+        ) : error ? (
+          <Error message={error} />
+        ) : (
+          bookings.map((booking) => (
+            <div key={booking._id}>
+              <br />
+              <p><b>Car Reserved:</b> {booking.car}</p>
+              <p><b>Booking ID:</b> {booking._id}</p>
+              <p><b>Pick Up Date:</b> {booking.pickupdate}</p>
+              <p><b>Return Date:</b> {booking.returndate}</p>
+              <p><b>Total Price:</b> {booking.totalprice}</p>
+              <p><b>Booking Status:</b> {booking.status}</p>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 }
 
 export default MyBookingpage;
-
