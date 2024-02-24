@@ -85,4 +85,25 @@ router.post("/getbookingsbymemberid", async (req, res) => {
   }
 });
 
+router.post("/cancelbooking", async (req, res) => {
+  const { bookingid, carid } = req.body;
+  try {
+    const booking = await Booking.findOne({ _id: bookingid });
+
+    booking.status = "cancelled";
+    await booking.save();
+    const car = await Car.findOne({ _id: carid });
+    const bookings = car.currentbookings;
+    const temp = bookings.filter(
+      (booking) => booking.bookingid.toString() !== bookingid
+    );
+    car.currentbookings = temp;
+    await car.save();
+
+    res.send("Your Booking has been Cancelled.");
+  } catch (error) {
+    return res.status(400).json({ error });
+  }
+});
+
 module.exports = router;

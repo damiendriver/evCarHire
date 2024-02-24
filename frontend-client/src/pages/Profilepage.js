@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Tabs } from "antd";
 import MyBookingpage from "./MyBookingpage";
 
-
 function Profilepage() {
   const member = JSON.parse(localStorage.getItem("currentMember"));
 
@@ -21,9 +20,15 @@ function Profilepage() {
             label: "Member Profile",
             key: "1",
             children: [
-              <p key="name"><b>Name:</b> {member.data.name}</p>,
-              <p key="email"><b>Email:</b> {member.data.email}</p>,
-              <p key="isadmin"><b>isAdmin:</b> {member.data.isAdmin ? "Yes" : "No"}</p>,
+              <p key="name">
+                <b>Name:</b> {member.data.name}
+              </p>,
+              <p key="email">
+                <b>Email:</b> {member.data.email}
+              </p>,
+              <p key="isadmin">
+                <b>isAdmin:</b> {member.data.isAdmin ? "Yes" : "No"}
+              </p>,
             ],
           },
           {

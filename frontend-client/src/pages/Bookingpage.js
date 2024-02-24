@@ -20,6 +20,11 @@ function Bookingpage() {
   const [totalprice, settotalprice] = useState();
 
   useEffect(() => {
+
+    if(!localStorage.getItem('currentMember')){
+      window.location.href='/login'
+    }
+
     const fetchData = async () => {
       try {
         setLoading(true);
