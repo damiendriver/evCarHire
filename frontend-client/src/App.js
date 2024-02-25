@@ -10,6 +10,7 @@ import Locationpage from "./pages/Locationpage";
 import Loginpage from "./pages/Loginpage";
 import Registerpage from "./pages/Registerpage";
 import Profilepage from "./pages/Profilepage";
+import Adminpage from "./pages/Adminpage";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/login" element={<Loginpage />} />
           <Route path="/register" element={<Registerpage />} />
           <Route path="/profile" element={<Profilepage />} />
+          <Route path="/admin" element={<Adminpage />} />
         </Routes>
       </Router>
     </div>
