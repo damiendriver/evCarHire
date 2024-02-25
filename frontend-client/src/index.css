@@ -78,3 +78,11 @@ input , select , .ant-picker{
 .ant-picker-input input{
   border: none !important;
 }
+
+.backgroundTest{
+  height: 100vh;
+  background-color: white;
+  background-image: url('https://res.cloudinary.com/dqu1cfm2e/image/upload/v1708739657/evCarHire/ev_background_xmob8w.png');
+  background-size: cover;
+  background-position: center;
+}

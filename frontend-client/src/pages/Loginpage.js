@@ -33,35 +33,54 @@ function Loginpage() {
   }
 
   return (
-    <div className="m-5">
-      {loading && <Loading />}
-      <div className="row justify-content-center mt-5">
-        <div className="col-md-5 box">
-          {error && <Error message="Invalid Login Details" />}
-          <div>
-            <h1>Login</h1>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => {
-                setemail(e.target.value);
-              }}
-            />
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => {
-                setpassword(e.target.value);
-              }}
-            />
+    <div className="">
+      <div className="m-5">
+        {loading && <Loading />}
+        <div className="row justify-content-center mt-5">
+          <div className="col-md-5 box">
+            {error && <Error message="Invalid Login Details" />}
+            <div>
+              <h1>Login</h1>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => {
+                  setemail(e.target.value);
+                }}
+              />
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => {
+                  setpassword(e.target.value);
+                }}
+              />
 
-            <button className="btn btn-primary mt-3 " onClick={Login}>
-              Login
-            </button>
+<div style={{ display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
+  <div>
+    <button className="btn btn-primary mt-3 mr-2" onClick={Login}>
+      Login
+    </button>
+  </div>
+  <div style={{ flexGrow: 1, textAlign: "center" }}>
+    Don't have a member account yet?
+  </div>
+  <div>
+    <button
+      className="btn btn-primary mt-3 ml-2"
+      onClick={() => {
+        window.location.href = "/register";
+      }}
+    >
+      Register Here
+    </button>
+  </div>
+</div>
+            </div>
           </div>
         </div>
       </div>

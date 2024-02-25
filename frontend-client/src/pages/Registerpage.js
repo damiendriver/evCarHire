@@ -27,7 +27,7 @@ function Registerpage() {
         const result = await axios.post("/api/member/register", member);
         setloading(false);
         setsuccess(true);
-        
+
         // after successful register clear input fields
         setname("");
         setemail("");
@@ -90,9 +90,36 @@ function Registerpage() {
                 setconfirm(e.target.value);
               }}
             />
-            <button className="btn btn-primary mt-3" onClick={register}>
-              Register
-            </button>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+              }}
+            >
+              <div>
+                <button
+                  className="btn btn-primary mt-3 mr-2"
+                  onClick={register}
+                >
+                  Register
+                </button>
+              </div>
+              <div style={{ flexGrow: 1, textAlign: "center" }}>
+                Already a Member?
+              </div>
+              <div>
+                <button
+                  className="btn btn-primary mt-3 ml-2"
+                  onClick={() => {
+                    window.location.href = "/login";
+                  }}
+                >
+                  Login
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
