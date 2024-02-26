@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Tabs } from "antd";
 import AdminBookingpage from "./AdminBookingpage";
 import AdminCarpage from "./AdminCarpage";
 import AdminMemberpage from "./AdminMemberpage";
+import AdminAddCarpage from "./AdminAddCarpage";
 
 function Adminpage() {
-    return (
-        <div className="m-5 mt-5 box">
-            <h2 className="text-center">Admin Panel</h2>
+  const member = JSON.parse(localStorage.getItem("currentMember"));
+
+  useEffect(() => {
+    if (!member || member.isAdmin === false) {
+      window.location.href = "/home";
+    }
+  }, [member]);
+  
+
+  return (
+    <div className="m-5 mt-5 box">
+      <h2 className="text-center">Admin Panel</h2>
       <Tabs
         defaultActiveKey="1"
         items={[
@@ -24,7 +34,7 @@ function Adminpage() {
           {
             label: "Add Cars",
             key: "3",
-            children: "new car info",
+            children: <AdminAddCarpage></AdminAddCarpage>,
           },
           {
             label: "Members",
@@ -34,6 +44,6 @@ function Adminpage() {
         ]}
       />
     </div>
-    )
+  );
 }
-export default Adminpage
+export default Adminpage;

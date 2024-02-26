@@ -54,7 +54,7 @@ function AdminMemberpage() {
         <Error msg={error}></Error>
       ) : (
         <div className="col-md-12">
-          <Table columns={columns} dataSource={members} />
+          <Table columns={columns} dataSource={members} rowKey="_id" />
         </div>
       )}
     </div>
