@@ -79,6 +79,13 @@ input , select , .ant-picker{
   border: none !important;
 }
 
+.ant-table-thead .ant-table-cell {
+  background-color: teal !important;
+  color: white !important;
+  font-weight: bold !important;
+}
+
+
 .backgroundTest{
   height: 100vh;
   background-color: white;

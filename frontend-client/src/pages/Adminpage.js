@@ -2,6 +2,7 @@ import React from "react";
 import { Tabs } from "antd";
 import AdminBookingpage from "./AdminBookingpage";
 import AdminCarpage from "./AdminCarpage";
+import AdminMemberpage from "./AdminMemberpage";
 
 function Adminpage() {
     return (
@@ -28,7 +29,7 @@ function Adminpage() {
           {
             label: "Members",
             key: "4",
-            children: "Members and Users",
+            children: <AdminMemberpage></AdminMemberpage>,
           },
         ]}
       />

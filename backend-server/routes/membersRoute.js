@@ -86,4 +86,14 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/getallmembers", async (req, res) => {
+  try {
+    const members = await Member.find();
+    res.send(members);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ message: error });
+  }
+});
+
 module.exports = router;

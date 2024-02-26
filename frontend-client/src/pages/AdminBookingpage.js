@@ -62,7 +62,7 @@ function AdminBookingpage() {
       ) : error.length > 0 ? (
         <Error msg={error}></Error>
       ) : (
-        <div className="col-md-10">
+        <div className="col-md-12">
         {Array.isArray(bookings) && bookings.length ? (
           <h3>Total Bookings: {bookings.length}</h3>
         ) : null}
