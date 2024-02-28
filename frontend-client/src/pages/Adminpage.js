@@ -9,11 +9,10 @@ function Adminpage() {
   const member = JSON.parse(localStorage.getItem("currentMember"));
 
   useEffect(() => {
-    if (!member || member.isAdmin === false) {
+    if (!member || member.data.isAdmin === false) {
       window.location.href = "/home";
     }
   }, [member]);
-  
 
   return (
     <div className="m-5 mt-5 box">
