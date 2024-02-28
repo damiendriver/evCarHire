@@ -1,9 +1,10 @@
 import React from "react";
+import ChargePoints from "../components/Chargepoints";
 
 function Mappage() {
     return (
         <div>
-            <h1>Where in the World?</h1>
+            <ChargePoints></ChargePoints>
         </div>
     )
 }
