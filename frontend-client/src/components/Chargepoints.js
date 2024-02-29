@@ -22,7 +22,7 @@ const ChargePoints = () => {
       <h1>EV Charge Points</h1>
       <ul>
         {chargePoints.map((point) => (
-          <li key={point.ID}>
+          <li key={point.ID} className='box'>
             <h3>{point.OperatorsReference}</h3>
             <p>
               <strong>Address:</strong> {point.AddressInfo.AddressLine1}, {point.AddressInfo.Town}, {point.AddressInfo.StateOrProvince}, {point.AddressInfo.Postcode}

@@ -1,6 +1,14 @@
 import React, { useEffect, useRef } from 'react';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import "leaflet/dist/leaflet.css";
+import iconMarker from "leaflet/dist/images/marker-icon.png";
+import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import L from "leaflet";
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: iconRetina,
+  iconUrl: iconMarker,
+  shadowUrl: iconShadow,
+});
 
 const Map = ({ chargePoints }) => {
   const mapRef = useRef(null);
@@ -30,7 +38,7 @@ const Map = ({ chargePoints }) => {
     };
   }, [chargePoints]);
 
-  return <div style={{ height: '400px' }} ref={mapRef} />;
+  return <div style={{ height: '900px' }} ref={mapRef} />;
 };
 
 export default Map;

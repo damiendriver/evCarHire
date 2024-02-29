@@ -93,3 +93,21 @@ input , select , .ant-picker{
   background-size: cover;
   background-position: center;
 }
+
+/* Mappage.css */
+.mappage-container {
+  display: flex;
+}
+
+.chargepoints-list {
+  flex: 1;
+  padding: 20px;
+}
+
+.map-container {
+  flex: 1;
+  padding: 20px;
+  height: 100vh;
+}
+
+/* Adjust padding and other styles as needed */

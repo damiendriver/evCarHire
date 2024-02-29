@@ -20,9 +20,13 @@ function Mappage() {
   }, []);
 
   return (
-    <div>
-      <ChargePoints chargePoints={chargePoints} />
-      <Map chargePoints={chargePoints} />
+    <div className="mappage-container box">
+      <div className="chargepoints-list">
+        <ChargePoints chargePoints={chargePoints} />
+      </div>
+      <div className="map-container">
+        <Map chargePoints={chargePoints} />
+      </div>
     </div>
   );
 }
