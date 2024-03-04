@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const cookieParser = require('cookie-parser')
+const verifyToken = require('./utils/verify_token')
 
 const dbConfig = require("./db")
 const carsRoute = require("./routes/carsRoute")
@@ -8,10 +10,11 @@ const bookingsRoute = require('./routes/bookingsRoute')
 const chargepointsRoute = require('./routes/chargepointsRoute')
 
 app.use(express.json())
+app.use(cookieParser())
 
-app.use("/api/car", carsRoute)
+app.use("/api/car", verifyToken, carsRoute)
 app.use("/api/member", membersRoute)
-app.use("/api/booking", bookingsRoute)
+app.use("/api/booking", verifyToken, bookingsRoute)
 app.use("/api/chargepoints", chargepointsRoute)
 
 const port = process.env.PORT || 5000;
