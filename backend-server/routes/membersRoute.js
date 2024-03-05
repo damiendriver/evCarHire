@@ -4,6 +4,8 @@ const Joi = require("joi");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 const Member = require("../models/member");
+const memberModel = require("../models/member");
+const nodemailer = require("nodemailer");
 
 const registerSchema = Joi.object({
   name: Joi.string().required(),
@@ -31,11 +33,9 @@ router.post("/register", async (req, res) => {
     // check if email entered is unique
     const existingMember = await Member.findOne({ email });
     if (existingMember) {
-      return res
-        .status(400)
-        .json({
-          error: "Email is already registered. Please use a different Email",
-        });
+      return res.status(400).json({
+        error: "Email is already registered. Please use a different Email",
+      });
     }
 
     // Hash the password before saving it
@@ -105,6 +105,85 @@ router.post("/getallmembers", async (req, res) => {
     console.log(error);
     return res.status(400).json({ message: error });
   }
+});
+
+router.post("/forgot-password", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const member = await memberModel.findOne({ email });
+    if (!member) {
+      return res.status(404).json({ status: "Member Not Known" });
+    }
+
+    const token = jwt.sign({ id: member._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+
+    const resetLink = `http://localhost:3000/reset-password/${member._id}/${token}`;
+
+    // Setting up nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "damiendriver81@gmail.com",
+        pass: process.env.gmail_password_here,
+      },
+    });
+
+    // Email content
+    const mailOptions = {
+      from: "damiendriver81@gmail.com",
+      to: email,
+      subject: "Reset Your Password",
+      text: `Click the link to reset your password: ${resetLink}`,
+    };
+
+    // Sending the email
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+        return res.status(500).json({ status: "Error sending email" });
+      } else {
+        console.log("Email sent: " + info.response);
+        return res.status(200).json({ status: "Email sent successfully" });
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: "Server Error" });
+  }
+});
+
+router.post("/reset-password/:id/:token", async (req, res) => {
+  const { id, token } = req.params;
+  const { password } = req.body;
+
+  // Verify the token
+  jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+    if (err) {
+      return res.status(400).json({ status: "Error with Token" });
+    } else {
+      try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const updatedMember = await memberModel.findByIdAndUpdate(
+          { _id: id },
+          { password: hashedPassword }
+        );
+
+        if (!updatedMember) {
+          return res.status(404).json({ status: "Member not found" });
+        }
+
+        return res.status(200).json({ status: "Success" });
+      } catch (error) {
+        return res
+          .status(500)
+          .json({ status: "Error updating password", error: error.message });
+      }
+    }
+  });
 });
 
 module.exports = router;

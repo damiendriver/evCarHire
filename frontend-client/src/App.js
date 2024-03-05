@@ -11,6 +11,8 @@ import Loginpage from "./pages/Loginpage";
 import Registerpage from "./pages/Registerpage";
 import Profilepage from "./pages/Profilepage";
 import Adminpage from "./pages/Adminpage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
           <Route path="/location" element={<Locationpage />} />
           <Route path="/login" element={<Loginpage />} />
           <Route path="/register" element={<Registerpage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password/:id/:token" element={<ResetPasswordPage />} />
           <Route path="/profile" element={<Profilepage />} />
           <Route path="/admin" element={<Adminpage />} />
         </Routes>

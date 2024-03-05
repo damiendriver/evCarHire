@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+import {Link} from 'react-router-dom';
 
 function Loginpage() {
   const [email, setemail] = useState("");
@@ -60,27 +61,38 @@ function Loginpage() {
                 }}
               />
 
-<div style={{ display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
-  <div>
-    <button className="btn btn-primary mt-3 mr-2" onClick={Login}>
-      Login
-    </button>
-  </div>
-  <div style={{ flexGrow: 1, textAlign: "center" }}>
-    Don't have a member account yet?
-  </div>
-  <div>
-    <button
-      className="btn btn-primary mt-3 ml-2"
-      onClick={() => {
-        window.location.href = "/register";
-      }}
-    >
-      Register Here
-    </button>
-  </div>
-</div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: "center",
+                }}
+              >
+                <div>
+                  <button className="btn btn-primary mt-3 mr-2" onClick={Login}>
+                    Login
+                  </button>
+                </div>
+                <div style={{ flexGrow: 1, textAlign: "center" }}>
+                  Don't have a member account yet?
+                </div>
+                <div>
+                  <button
+                    className="btn btn-primary mt-3 ml-2"
+                    onClick={() => {
+                      window.location.href = "/register";
+                    }}
+                  >
+                    Register Here
+                  </button>
+                </div>
+              </div>
             </div>
+            <br></br>
+                <p>
+                  <Link to="/forgot-password"> ForgotPassword</Link>
+                </p>
           </div>
         </div>
       </div>
