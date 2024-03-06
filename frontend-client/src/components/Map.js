@@ -12,33 +12,51 @@ L.Icon.Default.mergeOptions({
 
 const Map = ({ chargePoints }) => {
   const mapRef = useRef(null);
+  const map = useRef(null);
 
   useEffect(() => {
-    // Initialize map
-    const map = L.map(mapRef.current).setView([52.350832, -6.453820], 10); // Set initial view to a location
+    if (!mapRef.current) return;
 
-    // Add tile layer (you can use other tile providers)
+    // Initialize map
+    map.current = L.map(mapRef.current).setView([52.350832, -6.453820], 12);
+
+    // Add tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+    }).addTo(map.current);
+
+    return () => {
+      if (map.current) {
+        map.current.remove();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    // Update markers when chargePoints change
+    if (!map.current || !chargePoints) return;
+
+    // Clear existing markers
+    map.current.eachLayer(layer => {
+      if (layer instanceof L.Marker) {
+        map.current.removeLayer(layer);
+      }
+    });
 
     // Add markers for each charge point
     chargePoints.forEach(point => {
       L.marker([point.AddressInfo.Latitude, point.AddressInfo.Longitude])
-        .addTo(map)
+        .addTo(map.current)
         .bindPopup(`
-          <h3>${point.OperatorsReference}</h3>
+          <h3>${point.AddressInfo.Title}</h3>
           <p><strong>Address:</strong> ${point.AddressInfo.AddressLine1}, ${point.AddressInfo.Town}</p>
           <p><strong>Usage Type:</strong> ${point.UsageType?.Title || "N/A"}</p>
         `);
     });
-
-    return () => {
-      map.remove();
-    };
   }, [chargePoints]);
 
-  return <div style={{ height: '900px' }} ref={mapRef} />;
+  return <div style={{ height: '500px' }} ref={mapRef} />;
 };
 
 export default Map;
+

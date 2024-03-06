@@ -22,12 +22,12 @@ const ChargePoints = () => {
       <h1>EV Charge Points</h1>
       <ul>
         {chargePoints.map((point) => (
-          <li key={point.ID} className='box'>
-            <h3>{point.OperatorsReference}</h3>
+          <p key={point.ID} className='box'>
+            <h3>{point.AddressInfo.Title}</h3>
             <p>
               <strong>Address:</strong> {point.AddressInfo.AddressLine1}, {point.AddressInfo.Town}, {point.AddressInfo.StateOrProvince}, {point.AddressInfo.Postcode}
             </p>
-            <p><strong>Latitude:</strong> {point.AddressInfo.Latitude}, <strong>Longitude:</strong> {point.AddressInfo.Longitude}</p>
+            <p><strong>Latitude:</strong> {Number(point.AddressInfo.Latitude).toFixed(4)}, <strong>Longitude:</strong> {Number(point.AddressInfo.Longitude).toFixed(4)}</p>
             <p>
               <strong>Usage Type:</strong> {point.UsageType?.Title || "N/A"}
             </p>
@@ -39,7 +39,7 @@ const ChargePoints = () => {
                 </li>
               ))}
             </ul>
-          </li>
+          </p>
         ))}
       </ul>
     </div>

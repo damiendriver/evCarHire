@@ -35,6 +35,11 @@ code {
   font-weight: bold;
 }
 
+.navbar-toggler {
+  color: teal;
+  background-color: white;
+}
+
 .card-img-top{
   height:200px;
   width:100% !important;
@@ -78,6 +83,7 @@ input , select , .ant-picker{
 .ant-picker-input input{
   border: none !important;
 }
+
 
 .ant-table-thead .ant-table-cell {
   background-color: teal !important;
