@@ -1,5 +1,21 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const storage = multer.memoryStorage();
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024
+  }
+})
 
 const Car = require("../models/car")
 
@@ -35,26 +51,35 @@ router.post("/getallcars", async (req, res) => {
     }
   });
 
-  router.post("/addcar", async (req, res) => {
+  router.post("/addcar", upload.array("imageFiles", 3), async (req, res) => {
     try {
+      const imageFiles = req.files;
       const newCar = req.body;
-      console.log(req.body);
-      const car = new Car();
-      car.makeModel = newCar.makeModel;
-      car.carGroup = newCar.carGroup;
-      car.acriss = newCar.acriss;
-      car.priceAmount = newCar.priceAmount;
-      car.batteryType = newCar.batteryType;
-      car.currentbookings = [];
-      if (newCar.imageURL1 && newCar.imageURL1.length > 0) {
-        car.imageURLs.push(newCar.imageURL1);
+      console.log("Request Body:", req.body);
+      console.log("Uploaded Files:", imageFiles);
+  
+      if (!imageFiles || !Array.isArray(imageFiles)) {
+        return res.status(400).json({ message: "No images uploaded." });
       }
-      if (newCar.imageURL2 && newCar.imageURL2.length > 0) {
-        car.imageURLs.push(newCar.imageURL2);
-      }
-      if (newCar.imageURL3 && newCar.imageURL3.length > 0) {
-        car.imageURLs.push(newCar.imageURL3);
-      }
+  
+      const uploadPromises = imageFiles.map(async (image) => {
+        const b64 = Buffer.from(image.buffer).toString("base64");
+        let dataURI = "data:" + image.mimetype + ";base64," + b64;
+        const uploadedImage = await cloudinary.uploader.upload(dataURI);
+        return uploadedImage.url;
+      });
+  
+      const imageURLs = await Promise.all(uploadPromises);
+  
+      const car = new Car({
+        makeModel: newCar.makeModel,
+        carGroup: newCar.carGroup,
+        acriss: newCar.acriss,
+        priceAmount: newCar.priceAmount,
+        batteryType: newCar.batteryType,
+        currentbookings: [],
+        imageURLs: imageURLs,
+      });
   
       const result = await car.save();
       res.send(result);

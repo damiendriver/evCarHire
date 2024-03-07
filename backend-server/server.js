@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cookieParser = require('cookie-parser')
 const verifyToken = require('./utils/verify_token')
+const cloudinary = require('./utils/image_store')
 
 const dbConfig = require("./db")
 const carsRoute = require("./routes/carsRoute")

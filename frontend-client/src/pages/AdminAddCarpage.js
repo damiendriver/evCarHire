@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { Form, Input, InputNumber, Button, Select } from "antd";
+import { Form, Input, InputNumber, Button, Select, Upload } from "antd";
 import Swal from "sweetalert2";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
@@ -20,32 +20,56 @@ const tailLayout = {
   },
 };
 
+
 function AdminAddCarpage() {
   const { Option } = Select;
-  const [car, setCar] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [form] = Form.useForm();
 
   const onFinish = async (values) => {
-    console.log(values);
+    console.log("Form Values:", values);
+  
     setError("");
     setLoading(true);
     try {
-      const data = (await axios.post("/api/car/addcar", values)).data;
+      const formData = new FormData();
+      formData.append("makeModel", values.makeModel);
+      formData.append("carGroup", values.carGroup);
+      formData.append("acriss", values.acriss);
+      formData.append("priceAmount", values.priceAmount);
+      formData.append("batteryType", values.batteryType);
+      values.imageURLs.forEach((file) => {
+        formData.append("imageFiles", file.originFileObj);
+      });
+  
+      const response = await axios.post("/api/car/addcar", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+  
+      console.log("Response Data:", response.data);
       Swal.fire("Congratulations", "Your Car Added Successfully", "success");
       form.resetFields();
     } catch (error) {
-      console.log(error);
-      setError(error);
-      Swal.fire("Opps", "Error:" + error, "error");
+      console.error("Add Car Error:", error);
+      console.log("Error Response:", error.response); // Log the error response
+      setError(error.message || "An error occurred");
+      Swal.fire("Oops", "Error: " + error.message, "error");
     }
-
     setLoading(false);
   };
 
   const onReset = () => {
     form.resetFields();
+  };
+
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
   };
 
   return (
@@ -68,6 +92,7 @@ function AdminAddCarpage() {
               rules={[
                 {
                   required: true,
+                  message: "Please input the Make Model",
                 },
               ]}
             >
@@ -79,6 +104,7 @@ function AdminAddCarpage() {
               rules={[
                 {
                   required: true,
+                  message: "Please input the Car Group",
                 },
               ]}
             >
@@ -90,6 +116,7 @@ function AdminAddCarpage() {
               rules={[
                 {
                   required: true,
+                  message: "Please input the ACRISS",
                 },
               ]}
             >
@@ -101,44 +128,43 @@ function AdminAddCarpage() {
               rules={[
                 {
                   required: true,
+                  message: "Please input the Price Amount",
                 },
               ]}
             >
               <InputNumber min={1} defaultChecked={1} />
             </Form.Item>
+
             <Form.Item
-              name="imageURL1"
-              label="imageURL1"
+              name="imageURLs"
+              label="Image URLs"
+              valuePropName="fileList"
+              getValueFromEvent={normFile}
               rules={[
                 {
                   required: true,
+                  message: "Please upload at least one image",
                 },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item
-              name="imageURL2"
-              label="imageURL2"
-              rules={[
                 {
-                  //required: true,
+                  validator: (_, fileList) => {
+                    if (fileList.length > 3) {
+                      return Promise.reject("No more than 3 images");
+                    }
+                    return Promise.resolve();
+                  },
                 },
               ]}
             >
-              <Input />
+              <Upload
+                accept="image/*"
+                listType="picture-card"
+                maxCount={3}
+                beforeUpload={() => false}
+              >
+                <Button>Upload Image</Button>
+              </Upload>
             </Form.Item>
-            <Form.Item
-              name="imageURL3"
-              label="imageURL3"
-              rules={[
-                {
-                  //required: true,
-                },
-              ]}
-            >
-              <Input />
-            </Form.Item>
+
             <Form.Item
               name="batteryType"
               label="batteryType"
@@ -155,10 +181,10 @@ function AdminAddCarpage() {
               </Select>
             </Form.Item>
             <Form.Item {...tailLayout}>
-              <Button type="success" htmlType="submit">
+            <Button type="primary" htmlType="submit">
                 Add
               </Button>
-              <Button type="danger" htmlType="button" onClick={onReset}>
+              <Button htmlType="button" onClick={onReset}>
                 Reset
               </Button>
             </Form.Item>
