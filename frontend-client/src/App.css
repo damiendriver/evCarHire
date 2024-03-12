@@ -1,5 +1,12 @@
 .App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   text-align: left;
+}
+
+.MainContent {
+  flex-grow: 1;
 }
 
 .App-logo {
@@ -25,7 +32,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #22f291;
 }
 
 @keyframes App-logo-spin {
@@ -35,4 +42,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+footer {
+  background-color: #22f291;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
 }

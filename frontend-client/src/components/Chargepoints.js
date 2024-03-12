@@ -19,10 +19,10 @@ const ChargePoints = () => {
 
   return (
     <div>
-      <h1>EV Charge Points</h1>
-      <ul>
+      <h1>EV Charge Point Details</h1>
+      <ul style={{ listStyleType: 'none', padding: 0 }}>
         {chargePoints.map((point) => (
-          <p key={point.ID} className='box'>
+          <li key={point.ID} className='box'>
             <h3>{point.AddressInfo.Title}</h3>
             <p>
               <strong>Address:</strong> {point.AddressInfo.AddressLine1}, {point.AddressInfo.Town}, {point.AddressInfo.StateOrProvince}, {point.AddressInfo.Postcode}
@@ -39,7 +39,7 @@ const ChargePoints = () => {
                 </li>
               ))}
             </ul>
-          </p>
+          </li>
         ))}
       </ul>
     </div>

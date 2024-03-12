@@ -21,9 +21,9 @@ function Loginpage() {
       const result = await axios.post("/api/member/login", member);
       setloading(false);
 
-      // redirect successful login to homepage
+      // redirect successful login to vehicle display
       localStorage.setItem("currentMember", JSON.stringify(result));
-      window.location.href = "/home";
+      window.location.href = "/vehicle";
 
       console.log(result.data);
     } catch (error) {

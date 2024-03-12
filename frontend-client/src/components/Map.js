@@ -55,7 +55,7 @@ const Map = ({ chargePoints }) => {
     });
   }, [chargePoints]);
 
-  return <div style={{ height: '500px' }} ref={mapRef} />;
+  return <div style={{ height: '500px', width: '100%' }} ref={mapRef} />;
 };
 
 export default Map;

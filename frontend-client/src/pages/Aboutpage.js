@@ -2,7 +2,7 @@ import React from "react";
 
 function Aboutpage() {
     return (
-        <div className="backgroundTest">
+        <div>
         <div>
             <h1>Find Out More Shortly</h1>
         </div>

@@ -3,6 +3,7 @@ import axios from "axios";
 import { Table, Tag } from "antd";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+import { formatPrice } from "../utils/FormatPrice";
 
 function AdminBookingpage() {
   const [bookings, setBookings] = useState([]);
@@ -19,7 +20,7 @@ function AdminBookingpage() {
     { title: "Car", dataIndex: "car", key: "car" },
     { title: "Pickupdate", dataIndex: "pickupdate", key: "pickupdate" },
     { title: "Returndate", dataIndex: "returndate", key: "returndate" },
-    { title: "Total Price", dataIndex: "totalprice", key: "totalprice" },
+    { title: "Total Price", dataIndex: "totalprice", key: "totalprice", render: (text, record) => formatPrice(record.totalprice), },
     {
       title: "Status",
       dataIndex: "status",

@@ -6,6 +6,7 @@ import Error from "../components/Error";
 import moment from "moment";
 import StripeCheckout from "react-stripe-checkout";
 import Swal from "sweetalert2";
+import { formatPrice } from "../utils/FormatPrice";
 
 function Bookingpage() {
   const { carid, pickupdate, returndate } = useParams();
@@ -120,8 +121,8 @@ function Bookingpage() {
               <h2>Payment Amount</h2>
               <hr />
               <p>Total Days: {totaldays}</p>
-              <p>Daily Price: {car.priceAmount} </p>
-              <p>Total Price: {totalprice}</p>
+              <p>Daily Price: {formatPrice(car.priceAmount)} </p>
+              <p>Total Price: {formatPrice(totalprice)}</p>
             </div>
             <div style={{ float: "right" }}>
               <StripeCheckout

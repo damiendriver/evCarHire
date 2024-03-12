@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { Tag } from 'antd';
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+import { formatPrice } from "../utils/FormatPrice";
 
 function MyBookingpage() {
   const [bookings, setBookings] = useState([]);
@@ -90,7 +91,7 @@ function MyBookingpage() {
                 <b>Return Date:</b> {booking.returndate}
               </p>
               <p>
-                <b>Total Price:</b> {booking.totalprice}
+                <b>Total Price:</b> {formatPrice(booking.totalprice)}
               </p>
               <p>
                 <b>Booking Status:</b>{" "}

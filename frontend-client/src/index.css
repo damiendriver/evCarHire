@@ -16,27 +16,27 @@ code {
 }
 
 .navbar{
-  background-color: teal !important;
+  background-color: #22F291 !important;
 }
 
 .navbar-brand{
-  color: whitesmoke !important;
+  color: #02000D !important;
   font-weight: bold;
 }
 
 .nav-link{
-  color: white;
+  color: #02000D;
   font-weight: bold;
 }
 
 .nav-link:hover{
   background-color: white;
-  color: teal;
+  color: #02000D;
   font-weight: bold;
 }
 
 .navbar-toggler {
-  color: teal;
+  color: #02000D;
   background-color: white;
 }
 
@@ -46,13 +46,13 @@ code {
   border-radius: 5px !important;
 }
 .btn{
-  background-color: teal !important;
-  color: white !important;
+  background-color: #22F291 !important;
+  color: #02000D !important;
   box-shadow: none !important;
 }
 
 .box {
-  box-shadow: rgba(0, 128, 128, 0.3) 0px 0px 0px 3px;
+  box-shadow: rgba(34, 242, 145, 1) 0px 0px 10px 3px;
   margin: 10px;
   border-radius: 5px;
   padding: 5px;
@@ -63,21 +63,21 @@ code {
   border-radius: 10px !important;
 }
 .dropdown-menu{
-  background-color: teal !important;
+  background-color: #22F291 !important;
  
 }
 input , select , .ant-picker{
   box-shadow: none !important;
   margin: 5px !important;
-  border: 1pt solid teal !important;
+  border: 1pt solid #22F291 !important;
   width: 100% !important;
   border-radius: 3px !important;
   height: 40px !important;
 }
 
 .dropdown-item{
-  background-color: teal !important;
-  color: whitesmoke !important;
+  background-color: #22F291 !important;
+  color: #02000D !important;
 }
 
 .ant-picker-input input{
@@ -86,34 +86,77 @@ input , select , .ant-picker{
 
 
 .ant-table-thead .ant-table-cell {
-  background-color: teal !important;
+  background-color: #22F291 !important;
   color: white !important;
   font-weight: bold !important;
 }
 
 
-.backgroundTest{
-  height: 100vh;
+.backgroundHome{
+  height: 500px;
   background-color: white;
-  background-image: url('https://res.cloudinary.com/dqu1cfm2e/image/upload/v1708739657/evCarHire/ev_background_xmob8w.png');
+  background-image: url('https://res.cloudinary.com/dqu1cfm2e/image/upload/v1710084355/evCarHire/ev-banner2_oqjd9y.jpg');
   background-size: cover;
   background-position: center;
+  position: relative;
 }
 
 /* Mappage.css */
 .mappage-container {
   display: flex;
+  flex-direction: column;
+  width: 99%;
+  height: 99%;
+  margin: 10px;
+  padding: 10px;
 }
 
 .chargepoints-list {
+  text-align: left;
   flex: 1;
   padding: 20px;
+  width: 50%;
 }
 
 .map-container {
   flex: 1;
   padding: 20px;
-  height: 100vh;
+  width: 100%;
 }
 
-/* Adjust padding and other styles as needed */
+.map-title {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.landing{
+  background-color: white;
+}
+
+.landing-container {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.content-box {
+  background-color: white;
+  padding: 20px;
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+}

@@ -3,6 +3,7 @@ import axios from "axios";
 import { Table } from "antd";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+import { formatPrice } from "../utils/FormatPrice";
 
 function AdminCarpage() {
   const [cars, setCars] = useState([]);
@@ -19,7 +20,7 @@ function AdminCarpage() {
     { title: "Acriss", dataIndex: "acriss", key: "acriss" },
     { title: "Car Group", dataIndex: "carGroup", key: "carGroup" },
     { title: "Battery Type", dataIndex: "batteryType", key: "batteryType" },
-    { title: "Price", dataIndex: "priceAmount", key: "priceAmount" },
+    { title: "Price", dataIndex: "priceAmount", key: "priceAmount", render: (text, record) => formatPrice(record.priceAmount), },
   ];
 
   async function getallcars() {

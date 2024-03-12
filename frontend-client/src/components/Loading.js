@@ -8,7 +8,7 @@ function Loading() {
     <div style={{marginTop:'100px'}}>
       <div className="sweet-loading text-center">
         <PacmanLoader
-          color="#008080"
+          color="#22F291"
           loading={loading}
           css=""
           size={100}

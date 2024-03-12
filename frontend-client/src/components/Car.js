@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { formatPrice } from "../utils/FormatPrice"; 
 
 function Car({ car, pickupdate, returndate }) {
   const [show, setShow] = useState(false);
@@ -19,6 +20,7 @@ function Car({ car, pickupdate, returndate }) {
         <p className="card-text">Car Group: {car.carGroup}</p>
         <p className="card-text">Acriss: {car.acriss}</p>
         <p className="card-text">Battery: {car.batteryType}</p>
+        <p className="card-text">Price Per Day: {formatPrice(car.priceAmount)}</p>
         <div>
           {pickupdate && returndate && (
             <Link to={`/book/${car._id}/${pickupdate}/${returndate}`}>
@@ -46,6 +48,7 @@ function Car({ car, pickupdate, returndate }) {
             <p>Vehicle Acriss: {car.acriss}</p>
             <p>Vehicle Group: {car.carGroup}</p>
             <p>Vehicle Battery: {car.batteryType}</p>
+            <p>Price Per Day: {formatPrice(car.priceAmount)}</p>
           </b>
         </Modal.Body>
         <Modal.Footer>
