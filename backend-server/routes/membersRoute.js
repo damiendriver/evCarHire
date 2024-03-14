@@ -124,16 +124,18 @@ router.post("/forgot-password", async (req, res) => {
 
     // Setting up nodemailer transporter
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: 'smtp.zoho.eu',
+      port: 465,
+      secure: true,
       auth: {
-        user: "damiendriver81@gmail.com",
-        pass: process.env.gmail_password_here,
+        user: process.env.ZOHO_EMAIL_HERE,
+        pass: process.env.ZOHO_PASSWORD_HERE,
       },
     });
 
     // Email content
     const mailOptions = {
-      from: "damiendriver81@gmail.com",
+      from: process.env.ZOHO_EMAIL_HERE,
       to: email,
       subject: "Reset Your Password",
       text: `Click the link to reset your password: ${resetLink}`,
