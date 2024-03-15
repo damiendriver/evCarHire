@@ -3,6 +3,7 @@ import "leaflet/dist/leaflet.css";
 import iconMarker from "leaflet/dist/images/marker-icon.png";
 import iconRetina from "leaflet/dist/images/marker-icon-2x.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import customIcon from "../images/charging-station.png";
 import L from "leaflet";
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: iconRetina,
@@ -43,9 +44,16 @@ const Map = ({ chargePoints }) => {
       }
     });
 
+    const customMarkerIcon = L.icon({
+      iconUrl: customIcon,
+      iconSize: [40, 40],
+      iconAnchor: [16, 32], 
+      popupAnchor: [0, -32] 
+    });
+
     // Add markers for each charge point
     chargePoints.forEach(point => {
-      L.marker([point.AddressInfo.Latitude, point.AddressInfo.Longitude])
+      L.marker([point.AddressInfo.Latitude, point.AddressInfo.Longitude], { icon: customMarkerIcon })
         .addTo(map.current)
         .bindPopup(`
           <h3>${point.AddressInfo.Title}</h3>
@@ -55,7 +63,7 @@ const Map = ({ chargePoints }) => {
     });
   }, [chargePoints]);
 
-  return <div style={{ height: '500px', width: '100%' }} ref={mapRef} />;
+  return <div style={{ height: '750px', width: '100%' }} ref={mapRef} />;
 };
 
 export default Map;
