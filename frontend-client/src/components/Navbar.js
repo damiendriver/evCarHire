@@ -15,7 +15,7 @@ function NavBar() {
         <div className="container-fluid">
           <div className="navbar-brand">
             <a className="navbar-brand" href="/home">
-              <i className="bi bi-plugin bi-2x"></i>&nbsp;&nbsp;&nbsp; EV Car Hire
+              <i className="bi bi-plugin" id="evhome-icon"></i>&nbsp;&nbsp;&nbsp; EV Car Hire
             </a>
           </div>
           <button
@@ -44,7 +44,7 @@ function NavBar() {
                 <>
                   <div className="dropdown">
                     <button
-                      className="btn btn-secondary dropdown-toggle"
+                      className="btnLogin btnLogin-secondary dropdown-toggle"
                       type="button"
                       id="dropdownMenuButton"
                       data-toggle="dropdown"
@@ -75,7 +75,7 @@ function NavBar() {
                 <>
                   <div className="dropdown">
                     <button
-                      className="btn btn-secondary dropdown-toggle"
+                      className="btnLogin btnLogin-secondary dropdown-toggle"
                       type="button"
                       id="dropdownMenuButton"
                       data-toggle="dropdown"

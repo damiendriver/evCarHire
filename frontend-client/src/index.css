@@ -45,8 +45,15 @@ code {
   width:100% !important;
   border-radius: 5px !important;
 }
+
 .btn{
   background-color: #22F291 !important;
+  color: #02000D !important;
+  box-shadow: none !important;
+}
+
+.btnLogin{
+  background-color: #ffffff !important;
   color: #02000D !important;
   box-shadow: none !important;
 }
@@ -160,3 +167,20 @@ input , select , .ant-picker{
   justify-content: left;
   align-items: left;
 }
+
+/* Icons */
+
+#custom-icon {
+  font-size: 96px;
+  color: #22F291;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: 20px;
+}
+
+#evhome-icon {
+  font-size: 48px; 
+}
+
