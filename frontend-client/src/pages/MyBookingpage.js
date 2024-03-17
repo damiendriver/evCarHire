@@ -52,7 +52,7 @@ function MyBookingpage() {
         confirmButtonText: "New Booking",
       }).then((result) => {
         if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
-          window.location.href = "/home";
+          window.location.href = "/vehicle";
         }
       });
     } catch (error) {

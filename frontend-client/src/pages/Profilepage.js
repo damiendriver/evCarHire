@@ -18,7 +18,7 @@ function Profilepage() {
         items={[
           {
             label: "Member Profile",
-            key: "1",
+            key: "2",
             children: [
               <p key="name">
                 <b>Name:</b> {member.data.name}
@@ -33,7 +33,7 @@ function Profilepage() {
           },
           {
             label: "Reservations",
-            key: "2",
+            key: "1",
             children: <MyBookingpage></MyBookingpage>,
           },
         ]}

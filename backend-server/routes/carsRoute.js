@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
+const Location = require("../models/location")
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -53,15 +54,15 @@ router.post("/getallcars", async (req, res) => {
 
   router.post("/addcar", upload.array("imageFiles", 3), async (req, res) => {
     try {
+      const { makeModel, carGroup, acriss, priceAmount, batteryType, locationId } = req.body;
       const imageFiles = req.files;
-      const newCar = req.body;
-      console.log("Request Body:", req.body);
-      console.log("Uploaded Files:", imageFiles);
   
-      if (!imageFiles || !Array.isArray(imageFiles)) {
-        return res.status(400).json({ message: "No images uploaded." });
+      // Check for required fields
+      if (!makeModel || !carGroup || !acriss || !priceAmount || !batteryType || !locationId || !imageFiles || !Array.isArray(imageFiles) || imageFiles.length === 0) {
+        return res.status(400).json({ message: "Missing or invalid fields. Please provide all required fields and at least one image." });
       }
   
+      // Upload images to Cloudinary
       const uploadPromises = imageFiles.map(async (image) => {
         const b64 = Buffer.from(image.buffer).toString("base64");
         let dataURI = "data:" + image.mimetype + ";base64," + b64;
@@ -71,22 +72,36 @@ router.post("/getallcars", async (req, res) => {
   
       const imageURLs = await Promise.all(uploadPromises);
   
+      // Find the location by ID
+      const location = await Location.findById(locationId);
+      if (!location) {
+        return res.status(404).json({ error: 'Location not found' });
+      }
+  
+      // Create a new car
       const car = new Car({
-        makeModel: newCar.makeModel,
-        carGroup: newCar.carGroup,
-        acriss: newCar.acriss,
-        priceAmount: newCar.priceAmount,
-        batteryType: newCar.batteryType,
+        makeModel,
+        carGroup,
+        acriss,
+        priceAmount,
+        batteryType,
         currentbookings: [],
-        imageURLs: imageURLs,
+        imageURLs,
+        location: locationId,
       });
   
       const result = await car.save();
-      res.send(result);
+      
+      // Update the location's carsAvailable array with the new car's ID
+      location.carsAvailable.push(result._id);
+      await location.save();
+  
+      res.status(201).json(result); // 201 for "Created" status
     } catch (error) {
       console.log(error);
-      return res.status(400).json({ message: error });
+      return res.status(500).json({ message: "Internal server error" });
     }
-  });
+  });  
+  
 
 module.exports = router;

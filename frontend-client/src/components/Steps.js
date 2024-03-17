@@ -3,7 +3,7 @@ import React from "react";
 function Steps() {
   return (
     <div className="container">
-        <h2 className="text-center mt-4 mb-4">Electrify Your Journey</h2>
+        <h2 className="text-center mt-4 mb-4">Electrify Your Journey in 4 Easy Steps</h2>
       <div className="row justify-content-center">
         <div className="col-lg-2 col-md-6 box">
           <div className="card border-0">

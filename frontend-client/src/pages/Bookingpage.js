@@ -13,26 +13,30 @@ function Bookingpage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [car, setCar] = useState();
+  const [totaldays, setTotalDays] = useState(0); 
 
-  const totaldays = moment(returndate, "YYYY-MM-DD").diff(
-    moment(pickupdate, "YYYY-MM-DD"),
-    "days"
-  );
-  const [totalprice, settotalprice] = useState();
+  const [totalprice, setTotalPrice] = useState();
 
   useEffect(() => {
-
-    if(!localStorage.getItem('currentMember')){
-      window.location.href='/login'
+    if (!localStorage.getItem("currentMember")) {
+      window.location.href = "/login";
     }
 
     const fetchData = async () => {
       try {
         setLoading(true);
-        const data = (await axios.post("/api/car/getcarbyid", { carid })).data;
-        settotalprice(data.priceAmount * totaldays);
-
+        const data = (
+          await axios.post("/api/car/getcarbyid", { carid })
+        ).data;
         setCar(data);
+
+        const days = moment(returndate, "YYYY-MM-DD").diff(
+          moment(pickupdate, "YYYY-MM-DD"),
+          "days"
+        );
+        setTotalDays(days); // Corrected
+
+        setTotalPrice(data.priceAmount * days);
         setLoading(false);
         console.log(data);
       } catch (error) {
@@ -44,7 +48,7 @@ function Bookingpage() {
     fetchData();
 
     return () => {};
-  }, [carid, pickupdate, returndate, totaldays]);
+  }, [carid, pickupdate, returndate]); 
 
   async function onToken(token) {
     console.log(token);
@@ -72,7 +76,7 @@ function Bookingpage() {
         confirmButtonText: "OK",
       }).then((result) => {
         if (result.isConfirmed || result.dismiss === Swal.DismissReason.timer) {
-          window.location.href = "/home";
+          window.location.href = "/profile";
         }
       });
     } catch (error) {
@@ -97,11 +101,7 @@ function Bookingpage() {
         <div className="row justify-content-center mt-5 box">
           <div className="col-md-6">
             <h1>{car.makeModel}</h1>
-            <img
-              src={car.imageURLs[0]}
-              className="rotaimg"
-              alt={car.makeModel}
-            />
+            <img src={car.imageURLs[0]} className="rotaimg" alt={car.makeModel} />
           </div>
           <div className="col-md-6">
             <div style={{ textAlign: "right" }}>
@@ -142,3 +142,4 @@ function Bookingpage() {
 }
 
 export default Bookingpage;
+

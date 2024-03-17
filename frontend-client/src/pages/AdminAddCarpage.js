@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Form, Input, InputNumber, Button, Select, Upload } from "antd";
 import Swal from "sweetalert2";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+
+const { Option } = Select;
 
 const layout = {
   labelCol: {
@@ -13,6 +15,7 @@ const layout = {
     span: 16,
   },
 };
+
 const tailLayout = {
   wrapperCol: {
     offset: 8,
@@ -20,18 +23,32 @@ const tailLayout = {
   },
 };
 
-
 function AdminAddCarpage() {
-  const { Option } = Select;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [form] = Form.useForm();
+  const [locations, setLocations] = useState([]);
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("/api/location/getalllocations");
+        setLocations(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching locations:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchLocations();
+  }, []);
 
   const onFinish = async (values) => {
-    console.log("Form Values:", values);
-  
     setError("");
     setLoading(true);
+
     try {
       const formData = new FormData();
       formData.append("makeModel", values.makeModel);
@@ -39,25 +56,27 @@ function AdminAddCarpage() {
       formData.append("acriss", values.acriss);
       formData.append("priceAmount", values.priceAmount);
       formData.append("batteryType", values.batteryType);
+      formData.append("locationId", values.locationId);
+
       values.imageURLs.forEach((file) => {
         formData.append("imageFiles", file.originFileObj);
       });
-  
+
       const response = await axios.post("/api/car/addcar", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          "X-CSRF-TOKEN": getCSRFToken(),
         },
       });
-  
-      console.log("Response Data:", response.data);
+
       Swal.fire("Congratulations", "Your Car Added Successfully", "success");
       form.resetFields();
     } catch (error) {
       console.error("Add Car Error:", error);
-      console.log("Error Response:", error.response); // Log the error response
       setError(error.message || "An error occurred");
       Swal.fire("Oops", "Error: " + error.message, "error");
     }
+
     setLoading(false);
   };
 
@@ -72,20 +91,20 @@ function AdminAddCarpage() {
     return e && e.fileList;
   };
 
+  const getCSRFToken = () => {
+    const token = document.querySelector('meta[name="csrf-token"]');
+    return token ? token.content : "";
+  };
+
   return (
     <div className="row">
       {loading ? (
-        <Loading></Loading>
-      ) : error.length > 0 ? (
-        <Error msg={error}></Error>
+        <Loading />
+      ) : error ? (
+        <Error msg={error} />
       ) : (
         <div className="col-md-12">
-          <Form
-            {...layout}
-            form={form}
-            name="control-hooks"
-            onFinish={onFinish}
-          >
+          <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
             <Form.Item
               name="makeModel"
               label="makeModel"
@@ -94,9 +113,17 @@ function AdminAddCarpage() {
                   required: true,
                   message: "Please input the Make Model",
                 },
+                {
+                  pattern: /^[A-Za-z ]*$/,
+                  message: "Please enter only letters and spaces",
+                },
+                {
+                  max: 25,
+                  message: "Make Model should not exceed 25 characters",
+                },
               ]}
             >
-              <Input />
+              <Input maxLength={25} />
             </Form.Item>
             <Form.Item
               name="carGroup"
@@ -106,9 +133,13 @@ function AdminAddCarpage() {
                   required: true,
                   message: "Please input the Car Group",
                 },
+                {
+                  pattern: /^[A-Za-z]\d{2}$/,
+                  message: "Car Group should start with an alpha followed by two numbers",
+                },
               ]}
             >
-              <Input />
+              <Input maxLength={3} />
             </Form.Item>
             <Form.Item
               name="acriss"
@@ -118,9 +149,13 @@ function AdminAddCarpage() {
                   required: true,
                   message: "Please input the ACRISS",
                 },
+                {
+                  pattern: /^[A-Za-z]{4}$/,
+                  message: "ACRISS should be 4 alpha characters",
+                },
               ]}
             >
-              <InputNumber min={1} defaultChecked={1} />
+              <Input maxLength={4} />
             </Form.Item>
             <Form.Item
               name="priceAmount"
@@ -133,6 +168,25 @@ function AdminAddCarpage() {
               ]}
             >
               <InputNumber min={1} defaultChecked={1} />
+            </Form.Item>
+
+            <Form.Item
+              name="locationId"
+              label="Location"
+              rules={[
+                {
+                  required: true,
+                  message: "Please select a location",
+                },
+              ]}
+            >
+              <Select placeholder="Select a Location" allowClear>
+                {locations.map((location) => (
+                  <Option key={location._id} value={location._id}>
+                    {location.name}
+                  </Option>
+                ))}
+              </Select>
             </Form.Item>
 
             <Form.Item
@@ -171,6 +225,7 @@ function AdminAddCarpage() {
               rules={[
                 {
                   required: true,
+                  message: "Please select a Battery Type",
                 },
               ]}
             >
@@ -180,8 +235,9 @@ function AdminAddCarpage() {
                 <Option value="plug-in-hybrid">plug-in-hybrid</Option>
               </Select>
             </Form.Item>
+
             <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit">
                 Add
               </Button>
               <Button htmlType="button" onClick={onReset}>
@@ -196,3 +252,5 @@ function AdminAddCarpage() {
 }
 
 export default AdminAddCarpage;
+
+

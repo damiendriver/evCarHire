@@ -25,7 +25,12 @@ const carSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  currentbookings: []
+  currentbookings: [],
+  
+  location: {
+    type: String,
+    required: true,
+  },
 },
 {
 timestamps: true
