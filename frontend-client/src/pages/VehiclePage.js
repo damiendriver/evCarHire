@@ -3,7 +3,7 @@ import axios from "axios";
 import "antd/dist/reset.css";
 import Loading from "../components/Loading";
 import moment from "moment";
-import { DatePicker } from "antd";
+import { DatePicker, Button } from "antd";
 import Car from "../components/Car";
 
 const { RangePicker } = DatePicker;
@@ -17,8 +17,9 @@ function VehiclePage() {
   const [matchcars, setMatchcars] = useState([]);
   const [searchKey, setSearchKey] = useState("");
   const [batteryType, setBatteryType] = useState("all");
-  const [selectedLocation, setSelectedLocation] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState(""); // Default to empty string
   const [locations, setLocations] = useState([]);
+  const [canBook, setCanBook] = useState(false); // State for enabling book button
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,6 +59,7 @@ function VehiclePage() {
           isCarAvailable(car, dates[0], dates[1])
         );
         setMatchcars(tempCars);
+        setCanBook(selectedLocation !== "" && tempCars.length > 0); // Check both location and available cars
       }
     } catch (error) {
       console.error("Error filtering by date:", error);
@@ -95,11 +97,42 @@ function VehiclePage() {
   function filterBySearch(e) {
     const value = e.target.value;
     setSearchKey(value);
-    const tempCars = matchcars.filter((car) =>
-      car.makeModel.toLowerCase().includes(value.toLowerCase())
-    );
-    setMatchcars(tempCars);
+    if (value === "") {
+      // Reset the search key when input is empty
+      let tempCars = cars;
+      if (selectedLocation !== "") {
+        // Filter by selected location
+        tempCars = tempCars.filter((car) => car.location === selectedLocation);
+      }
+      if (pickupdate && returndate) {
+        // Filter by selected date range
+        tempCars = tempCars.filter((car) =>
+          isCarAvailable(car, pickupdate, returndate)
+        );
+      }
+      setMatchcars(tempCars);
+    } else {
+      const searchTerm = value.toLowerCase();
+      let tempCars = cars;
+      if (selectedLocation !== "") {
+        // Filter by selected location
+        tempCars = tempCars.filter((car) => car.location === selectedLocation);
+      }
+      if (pickupdate && returndate) {
+        // Filter by selected date range
+        tempCars = tempCars.filter((car) =>
+          isCarAvailable(car, pickupdate, returndate)
+        );
+      }
+      // Filter by search term
+      tempCars = tempCars.filter((car) =>
+        car.makeModel.toLowerCase().includes(searchTerm)
+      );
+      setMatchcars(tempCars);
+    }
   }
+  
+  
 
   function filterByBatteryType(e) {
     setBatteryType(e);
@@ -124,6 +157,7 @@ function VehiclePage() {
       }
     }
     setMatchcars(tempCars);
+    setCanBook(selectedLocation !== "" && pickupdate && returndate && tempCars.length > 0); // Check all conditions for booking
   }
 
   useEffect(() => {
@@ -152,6 +186,8 @@ function VehiclePage() {
             format="YYYY-MM-DD"
             onChange={filterByDate}
             disabledDate={disabledDate}
+            disabled={!selectedLocation} // Disable date picker until location is selected
+            allowEmpty={!selectedLocation} // Allow empty only when location is not selected
           />
         </div>
         <div className="col-md-2">
@@ -168,6 +204,7 @@ function VehiclePage() {
             className="form-control"
             value={batteryType}
             onChange={(e) => filterByBatteryType(e.target.value)}
+            disabled={!selectedLocation} // Disable battery type selection until location is selected
           >
             <option value="all">All</option>
             <option value="full electric">Full Electric</option>
@@ -179,12 +216,21 @@ function VehiclePage() {
       <div className="row justify-content-center mt-5">
         {loading ? (
           <Loading />
-        ) : (
+        ) : matchcars.length > 0 ? (
           matchcars.map((car) => (
             <div key={car._id} className="col-md-4 mb-4">
-              <Car car={car} pickupdate={pickupdate} returndate={returndate} />
+              <Car
+                car={car}
+                pickupdate={pickupdate}
+                returndate={returndate}
+                canBook={canBook} // Pass canBook prop to Car component
+              />
             </div>
           ))
+        ) : (
+          <div className="col-md-12 text-center">
+            <p>No cars available for the selected criteria.</p>
+          </div>
         )}
       </div>
     </div>
@@ -192,3 +238,5 @@ function VehiclePage() {
 }
 
 export default VehiclePage;
+
+
