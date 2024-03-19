@@ -17,9 +17,9 @@ function VehiclePage() {
   const [matchcars, setMatchcars] = useState([]);
   const [searchKey, setSearchKey] = useState("");
   const [batteryType, setBatteryType] = useState("all");
-  const [selectedLocation, setSelectedLocation] = useState(""); // Default to empty string
+  const [selectedLocation, setSelectedLocation] = useState(""); 
   const [locations, setLocations] = useState([]);
-  const [canBook, setCanBook] = useState(false); // State for enabling book button
+  const [canBook, setCanBook] = useState(false); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,16 +48,49 @@ function VehiclePage() {
     fetchData();
     fetchLocations();
   }, []);
+  
+
+  function isCarAvailable(car, startDate, endDate) {
+    if (car.currentbookings.length === 0) return true;
+  
+    for (const booking of car.currentbookings) {
+      const bookingStartDate = moment(booking.pickupdate);
+      const bookingEndDate = moment(booking.returndate);
+  
+      // Check if the selected date range overlaps with any booking
+      if (
+        (moment(startDate).isSameOrAfter(bookingStartDate) && moment(startDate).isBefore(bookingEndDate)) ||
+        (moment(endDate).isAfter(bookingStartDate) && moment(endDate).isSameOrBefore(bookingEndDate)) ||
+        (moment(startDate).isBefore(bookingStartDate) && moment(endDate).isAfter(bookingEndDate))
+      ) {
+        return false; // Car is not available for this date range
+      }
+    }
+    return true; // Car is available for the selected date range
+  }
+  
+
+  function disabledDate(current) {
+    return current && current < moment().endOf("day");
+  }
 
   function filterByDate(dates) {
     try {
       if (Array.isArray(dates) && dates.length === 2) {
-        setPickupdate(moment(dates[0].$d).format("YYYY-MM-DD"));
-        setReturndate(moment(dates[1].$d).format("YYYY-MM-DD"));
-
-        const tempCars = matchcars.filter((car) =>
-          isCarAvailable(car, dates[0], dates[1])
-        );
+        const startDate = moment(dates[0].$d).format("YYYY-MM-DD");
+        const endDate = moment(dates[1].$d).format("YYYY-MM-DD");
+  
+        setPickupdate(startDate);
+        setReturndate(endDate);
+  
+        let tempCars = cars;
+        if (selectedLocation !== "") {
+          // Filter by selected location
+          tempCars = tempCars.filter((car) => car.location === selectedLocation);
+        }
+  
+        tempCars = tempCars.filter((car) => isCarAvailable(car, startDate, endDate));
+        
         setMatchcars(tempCars);
         setCanBook(selectedLocation !== "" && tempCars.length > 0); // Check both location and available cars
       }
@@ -65,41 +98,13 @@ function VehiclePage() {
       console.error("Error filtering by date:", error);
     }
   }
-
-  function isCarAvailable(car, startDate, endDate) {
-    if (car.currentbookings.length === 0) return true;
-
-    for (const booking of car.currentbookings) {
-      if (
-        !moment(startDate).isBetween(
-          booking.pickupdate,
-          booking.returndate,
-          null,
-          "[]"
-        ) &&
-        !moment(endDate).isBetween(
-          booking.pickupdate,
-          booking.returndate,
-          null,
-          "[]"
-        )
-      ) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  function disabledDate(current) {
-    return current && current < moment().endOf("day");
-  }
-
+  
   function filterBySearch(e) {
     const value = e.target.value;
     setSearchKey(value);
+    let tempCars = cars;
     if (value === "") {
       // Reset the search key when input is empty
-      let tempCars = cars;
       if (selectedLocation !== "") {
         // Filter by selected location
         tempCars = tempCars.filter((car) => car.location === selectedLocation);
@@ -113,7 +118,6 @@ function VehiclePage() {
       setMatchcars(tempCars);
     } else {
       const searchTerm = value.toLowerCase();
-      let tempCars = cars;
       if (selectedLocation !== "") {
         // Filter by selected location
         tempCars = tempCars.filter((car) => car.location === selectedLocation);
@@ -131,7 +135,6 @@ function VehiclePage() {
       setMatchcars(tempCars);
     }
   }
-  
   
 
   function filterByBatteryType(e) {

@@ -13,8 +13,8 @@ function Bookingpage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const [car, setCar] = useState();
-  const [totaldays, setTotalDays] = useState(0); 
-
+  const [totaldays, setTotalDays] = useState(0);
+  const [locationMap, setLocationMap] = useState({}); 
   const [totalprice, setTotalPrice] = useState();
 
   useEffect(() => {
@@ -46,6 +46,26 @@ function Bookingpage() {
     };
 
     fetchData();
+
+    const fetchLocations = async () => {
+      try {
+        const response = await axios.get("/api/location/getlocationbyname");
+        const locations = response.data;
+        const map = {};
+        locations.forEach((location) => {
+          map[location._id] = location.name;
+        });
+        setLocationMap(map);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching locations:", error);
+        setError(true);
+        setLoading(false);
+      }
+    };
+
+    fetchLocations();
+  
 
     return () => {};
   }, [carid, pickupdate, returndate]); 
@@ -112,7 +132,8 @@ function Bookingpage() {
                   Drivers Name:{" "}
                   {JSON.parse(localStorage.getItem("currentMember")).data.name}
                 </p>
-                <p>Battery Type: {car.batteryType}</p>
+                <p>Rental Location: {locationMap[car?.location]}</p>
+                <p>Battery Type: {car.batteryType ? car.batteryType.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : ''}</p>
                 <p>Pick Up Date: {pickupdate}</p>
                 <p>Return Date: {returndate}</p>
               </b>
@@ -142,4 +163,6 @@ function Bookingpage() {
 }
 
 export default Bookingpage;
+
+
 

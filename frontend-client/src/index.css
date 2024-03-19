@@ -68,7 +68,9 @@ code {
 .rotaimg{
   height: 300px !important;
   border-radius: 10px !important;
+  max-width: 100%;
 }
+
 .dropdown-menu{
   background-color: #22F291 !important;
  

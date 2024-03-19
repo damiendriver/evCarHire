@@ -1,6 +1,13 @@
 import React from "react";
 
 function Footer() {
-  return <footer>Am I at the bottom of the page</footer>;
+  const emailAddress = "rentals@evcarhireireland.ie";
+
+  return (
+    <footer>
+      <p>Contact us at: <a href={`mailto:${emailAddress}`}>{emailAddress}</a></p>
+    </footer>
+  );
 }
+
 export default Footer;
