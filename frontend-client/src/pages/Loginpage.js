@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function Loginpage() {
   const [email, setemail] = useState("");
@@ -41,7 +41,7 @@ function Loginpage() {
           <div className="col-md-5 box">
             {error && <Error message="Invalid Login Details" />}
             <div>
-              <h1>Login</h1>
+              <h1 style={{ textAlign: "center" }}>Login</h1>
               <input
                 type="text"
                 className="form-control"
@@ -90,9 +90,9 @@ function Loginpage() {
               </div>
             </div>
             <br></br>
-                <p>
-                  <Link to="/forgot-password"> ForgotPassword</Link>
-                </p>
+            <p>
+              <Link to="/forgot-password"> ForgotPassword</Link>
+            </p>
           </div>
         </div>
       </div>

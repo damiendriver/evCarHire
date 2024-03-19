@@ -45,7 +45,7 @@ function ForgotPasswordPage() {
             </div>
           )}
 
-          <h1>Forgot Password</h1>
+          <h1 style={{ textAlign: "center" }}>Forgot Password</h1>
           <input
             type="email"
             className="form-control"

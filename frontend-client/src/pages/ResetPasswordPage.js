@@ -52,7 +52,7 @@ function ResetPasswordPage() {
             </div>
           )}
 
-          <h1>Reset Password</h1>
+          <h1 style={{ textAlign: "center" }}>Reset Password</h1>
           <input
             type="password"
             className="form-control"

@@ -124,7 +124,7 @@ router.post("/forgot-password", async (req, res) => {
 
     // Setting up nodemailer transporter
     const transporter = nodemailer.createTransport({
-      host: 'smtp.zoho.eu',
+      host: "smtp.zoho.eu",
       port: 465,
       secure: true,
       auth: {

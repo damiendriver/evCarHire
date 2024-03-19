@@ -10,8 +10,8 @@ function Registerpage() {
   const [password, setpassword] = useState("");
   const [confirm, setconfirm] = useState("");
   const [loading, setloading] = useState(false);
-  const [error, seterror] = useState();
-  const [success, setsuccess] = useState();
+  const [error, seterror] = useState(false);
+  const [success, setsuccess] = useState(false);
 
   async function register() {
     if (password === confirm) {
@@ -28,7 +28,11 @@ function Registerpage() {
         setloading(false);
         setsuccess(true);
 
-        // after successful register clear input fields
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 1000);
+
+        // Clear input fields
         setname("");
         setemail("");
         setpassword("");
@@ -53,7 +57,7 @@ function Registerpage() {
           {error && <Error />}
           {success && <Success message="Registration Successful" />}
           <div>
-            <h1>Register</h1>
+            <h1 style={{ textAlign: "center" }}>Register</h1>
             <input
               type="text"
               className="form-control"
@@ -126,4 +130,5 @@ function Registerpage() {
     </div>
   );
 }
+
 export default Registerpage;

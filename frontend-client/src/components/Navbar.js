@@ -30,6 +30,7 @@ function NavBar() {
           <div className={`collapse navbar-collapse ${isOpen ? "show" : ""}`}>
             <ul className="navbar-nav mx-auto">
               <NavItem link="/home" text="Home" active />
+              <NavItem link="/register" text="Join For Free" />
               {member && (
                 <NavItem link="/vehicle" text="Vehicle Options" />
               )}
