@@ -10,7 +10,7 @@ function Homepage() {
           <div className="backgroundHome">
             <div className="content text-left">
               <div className="content-box">
-                <Link to="/login" className="btnHome btn-primary">
+                <Link to="/register" className="btnHome btn-primary">
                   <h2 style={{ textAlign: "center", margin: 0 }}>
                     JOIN
                     <br />
