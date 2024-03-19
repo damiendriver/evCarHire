@@ -20,13 +20,15 @@ code {
 }
 
 .navbar-brand{
-  color: #02000D !important;
+  color: white !important;
   font-weight: bold;
+  font-size: 2rem;
 }
 
 .nav-link{
-  color: #02000D;
+  color: white;
   font-weight: bold;
+  font-size: 1.25rem;
 }
 
 .nav-link:hover{
