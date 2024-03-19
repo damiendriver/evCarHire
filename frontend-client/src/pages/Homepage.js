@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import Steps from "../components/Steps";
 
 function Homepage() {
@@ -10,16 +10,20 @@ function Homepage() {
           <div className="backgroundHome">
             <div className="content text-left">
               <div className="content-box">
-                <h2>EV Car Hire</h2>
+                <Link to="/login" className="btnHome btn-primary">
+                  <h2 style={{ textAlign: "center", margin: 0 }}>
+                    JOIN
+                    <br />
+                    FOR FREE
+                  </h2>
+                  <i class="bi bi-arrow-right-square-fill"></i>
+                </Link>
                 <div>
-                  <Link to='/login' className="btn btn-primary">
-                    Join Up Today
-                  </Link>
-                </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
       </div>
       <Steps />
     </div>
@@ -27,4 +31,3 @@ function Homepage() {
 }
 
 export default Homepage;
-

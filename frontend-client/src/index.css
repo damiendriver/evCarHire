@@ -149,6 +149,7 @@ input , select , .ant-picker{
   padding-bottom: 5px;
 }
 
+/* Homepage link to join*/
 .content-box {
   background-color: white;
   padding: 20px;
@@ -170,8 +171,38 @@ input , select , .ant-picker{
   align-items: left;
 }
 
-/* Icons */
+.btnHome{
+  background-color: #22F291;
+  color: white;
+  box-shadow: none;
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  font-family: 'Comic Neue', cursive !important;
+  text-decoration: none !important;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
 
+.btnHome:hover{
+  background-color: #ffff;
+  color: #22F291;
+  font-family: 'Comic Neue', cursive !important;
+  text-decoration: none !important;
+  font-weight: bold;
+}
+
+.btnHome h2, i {
+  font-size: 48px;
+}
+
+
+/* Icons */
 #custom-icon {
   font-size: 96px;
   color: #22F291;
