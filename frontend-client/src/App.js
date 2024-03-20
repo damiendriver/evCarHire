@@ -20,6 +20,7 @@ import Adminpage from "./pages/Adminpage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import Footer from "./components/Footer";
+import ContactPage from "./pages/ContactPage";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/about" element={<Aboutpage />} />
             <Route path="/map" element={<Mappage />} />
             <Route path="/terms" element={<Termspage />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/location" element={<Locationpage />} />
             <Route path="/login" element={<Loginpage />} />
             <Route path="/register" element={<Registerpage />} />
