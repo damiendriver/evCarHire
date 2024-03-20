@@ -31,15 +31,16 @@ const RentalLocations = () => {
 
   return (
     <div>
-      <h1>Electric Rental Locations</h1>
+      <h1 style={{ textAlign: "center" }}>Electric Rental Locations</h1>
       <ul style={{ listStyleType: "none", padding: 0 }}>
         {rentalLocations.map((location) => (
           <li key={location._id} className="box">
             <h3>{location.name}</h3>
             <p>
-              <strong>Latitude:</strong> {Number(location.latitude).toFixed(4)},{" "}
-              <strong>Longitude:</strong>{" "}
-              {Number(location.longitude).toFixed(4)}
+              <strong>Opening Hours:</strong> {location.openHours}
+            </p>
+            <p>
+              <strong>Cars Available:</strong> {location.carsAvailable}
             </p>
           </li>
         ))}

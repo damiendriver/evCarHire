@@ -15,7 +15,8 @@ function NavBar() {
         <div className="container-fluid">
           <div className="navbar-brand">
             <a className="navbar-brand" href="/home">
-              <i className="bi bi-plugin" id="evhome-icon"></i>&nbsp;&nbsp;&nbsp; EV Car Hire
+              <i className="bi bi-plugin" id="evhome-icon"></i>
+              &nbsp;&nbsp;&nbsp; EV Car Hire
             </a>
           </div>
           <button
@@ -30,10 +31,8 @@ function NavBar() {
           <div className={`collapse navbar-collapse ${isOpen ? "show" : ""}`}>
             <ul className="navbar-nav mx-auto">
               <NavItem link="/home" text="Home" active />
-              <NavItem link="/register" text="Join For Free" />
-              {member && (
-                <NavItem link="/vehicle" text="Vehicle Options" />
-              )}
+              {!member && <NavItem link="/register" text="Join For Free" />}
+              {member && <NavItem link="/vehicle" text="Vehicle Options" />}
               <NavItem link="/about" text="About EV Cars" />
               <NavItem link="/map" text="Charge Point Map" />
               <NavItem link="location" text="Hire Locations" />
@@ -60,13 +59,17 @@ function NavBar() {
                     >
                       <a className="dropdown-item" href="/profile">
                         Profile
-                        </a>
+                      </a>
                       {member.data.isAdmin && (
                         <a className="dropdown-item" href="/admin">
                           Admin Area
                         </a>
                       )}
-                      <a className="dropdown-item" href="/home" onClick={logout}>
+                      <a
+                        className="dropdown-item"
+                        href="/home"
+                        onClick={logout}
+                      >
                         Logout
                       </a>
                     </div>
