@@ -16,7 +16,7 @@ function Homepage() {
                     <br />
                     FOR FREE
                   </h2>
-                  <i class="bi bi-arrow-right-square-fill"></i>
+                  <i className="bi bi-arrow-right-square-fill"></i>
                 </Link>
                 <div>
               </div>
