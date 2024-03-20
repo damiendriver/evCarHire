@@ -1,0 +1,29 @@
+{
+    "version": 2,
+    "routes": [
+        {
+            "src": "/api/car(.*)",
+            "dest": "backend/routes/carsRoute.js$1"
+        },
+        {
+            "src": "/api/location(.*)",
+            "dest": "backend/routes/locationsRoute.js$1"
+        },
+        {
+            "src": "/api/member(.*)",
+            "dest": "backend/routes/membersRoute.js$1"
+        },
+        {
+            "src": "/api/booking(.*)",
+            "dest": "backend/routes/bookingsRoute.js$1"
+        },
+        {
+            "src": "/api/chargepoints(.*)",
+            "dest": "backend/routes/chargepointsRoute.js$1"
+        },
+        {
+            "src": "/api/contact(.*)",
+            "dest": "backend/routes/contactRoute.js$1"
+        }
+    ]
+}
