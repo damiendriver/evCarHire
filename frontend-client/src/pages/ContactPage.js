@@ -18,18 +18,19 @@ const ContactForm = () => {
   const validateForm = () => {
     let valid = true;
     let newErrors = {};
-
+  
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
       valid = false;
     } else {
-      const nameRegex = /^[A-Za-z]+$/;
+      // Updated nameRegex to allow alphabetic characters and spaces
+      const nameRegex = /^[A-Za-z\s]+$/;
       if (!nameRegex.test(formData.name)) {
-        newErrors.name = "Name must contain only letters";
+        newErrors.name = "Name must contain only letters and spaces";
         valid = false;
       }
     }
-
+  
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
       valid = false;
@@ -40,15 +41,16 @@ const ContactForm = () => {
         valid = false;
       }
     }
-
+  
     if (!formData.message.trim()) {
       newErrors.message = "Message is required";
       valid = false;
     }
-
+  
     setErrors(newErrors);
     return valid;
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
