@@ -42,7 +42,7 @@ function AdminBookingpage() {
     setError("");
     setLoading(true);
     try {
-      const response = await axios.post("/api/booking/getallbookings");
+      const response = await axios.post("https://ev-car-hire-backend.vercel.app/api/booking/getallbookings");
       setBookings(response.data);
     } catch (error) {
       console.log(error);

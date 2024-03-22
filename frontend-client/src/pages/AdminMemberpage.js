@@ -34,7 +34,7 @@ function AdminMemberpage() {
     setError("");
     setLoading(true);
     try {
-      const response = (await axios.post("/api/member/getallmembers"));
+      const response = (await axios.post("https://ev-car-hire-backend.vercel.app/api/member/getallmembers"));
       setMembers(response.data);
     } catch (error) {
       console.log(error);

@@ -27,7 +27,7 @@ function AdminCarpage() {
     setError("");
     setLoading(true);
     try {
-      const response = await axios.post("/api/car/getallcars");
+      const response = await axios.post("https://ev-car-hire-backend.vercel.app/api/car/getallcars");
       setCars(response.data);
     } catch (error) {
       console.log(error);

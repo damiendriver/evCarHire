@@ -33,7 +33,7 @@ function AdminAddCarpage() {
     const fetchLocations = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("/api/location/getalllocations");
+        const response = await axios.get("https://ev-car-hire-backend.vercel.app/api/location/getalllocations");
         setLocations(response.data);
         setLoading(false);
       } catch (error) {
@@ -62,7 +62,7 @@ function AdminAddCarpage() {
         formData.append("imageFiles", file.originFileObj);
       });
 
-      const response = await axios.post("/api/car/addcar", formData, {
+      const response = await axios.post("https://ev-car-hire-backend.vercel.app/api/car/addcar", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           "X-CSRF-TOKEN": getCSRFToken(),

@@ -25,7 +25,7 @@ function VehiclePage() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("/api/car/getallcars");
+        const response = await axios.get("https://ev-car-hire-backend.vercel.app/api/car/getallcars");
         setCars(response.data);
         setMatchcars(response.data);
         setLoading(false);
@@ -38,7 +38,7 @@ function VehiclePage() {
 
     const fetchLocations = async () => {
       try {
-        const response = await axios.get("/api/location/getalllocations");
+        const response = await axios.get("https://ev-car-hire-backend.vercel.app/api/location/getalllocations");
         setLocations(response.data);
       } catch (error) {
         console.error("Error fetching locations:", error);

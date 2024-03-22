@@ -24,7 +24,7 @@ function Registerpage() {
 
       try {
         setloading(true);
-        const result = await axios.post("/api/member/register", member);
+        const result = await axios.post("https://ev-car-hire-backend.vercel.app/api/member/register", member);
         setloading(false);
         setsuccess(true);
 

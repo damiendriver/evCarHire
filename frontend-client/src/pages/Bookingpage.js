@@ -26,7 +26,7 @@ function Bookingpage() {
       try {
         setLoading(true);
         const data = (
-          await axios.post("/api/car/getcarbyid", { carid })
+          await axios.post("https://ev-car-hire-backend.vercel.app/api/car/getcarbyid", { carid })
         ).data;
         setCar(data);
 
@@ -49,7 +49,7 @@ function Bookingpage() {
 
     const fetchLocations = async () => {
       try {
-        const response = await axios.get("/api/location/getlocationbyname");
+        const response = await axios.get("https://ev-car-hire-backend.vercel.app/api/location/getlocationbyname");
         const locations = response.data;
         const map = {};
         locations.forEach((location) => {
@@ -86,7 +86,7 @@ function Bookingpage() {
     try {
       setLoading(true);
       console.log("Sending POST request to /api/booking/bookcar...");
-      const result = await axios.post("/api/booking/bookcar", bookingDetails);
+      const result = await axios.post("https://ev-car-hire-backend.vercel.app/api/booking/bookcar", bookingDetails);
       console.log("Response:", result.data);
       setLoading(false);
       Swal.fire({

@@ -19,7 +19,7 @@ function ResetPasswordPage() {
     try {
       setLoading(true);
       const result = await axios.post(
-        `/api/member/reset-password/${id}/${token}`,
+        `https://ev-car-hire-backend.vercel.app/api/member/reset-password/${id}/${token}`,
         member
       );
       setLoading(false);

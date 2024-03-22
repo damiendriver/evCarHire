@@ -16,7 +16,7 @@ function ForgotPasswordPage() {
 
     try {
       setLoading(true);
-      const result = await axios.post("/api/member/forgot-password", member);
+      const result = await axios.post("https://ev-car-hire-backend.vercel.app/api/member/forgot-password", member);
       setLoading(false);
 
       // Assuming result.data contains the necessary response data

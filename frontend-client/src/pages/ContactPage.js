@@ -57,7 +57,7 @@ const ContactForm = () => {
 
     if (validateForm()) {
       try {
-        await axios.post("https://ev-car-hire-backend.vercel.app/api/contact", formData);
+        await axios.post("https://ev-car-hire-backend.vercel.app/api/contact/contact", formData);
         alert("Email sent successfully!");
         setFormData({ name: "", email: "", message: "" });
       } catch (err) {

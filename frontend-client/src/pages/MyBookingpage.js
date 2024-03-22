@@ -17,7 +17,7 @@ function MyBookingpage() {
     setError("");
     setLoading(true);
     try {
-      const response = await axios.post("/api/booking/getbookingsbymemberid", {
+      const response = await axios.post("https://ev-car-hire-backend.vercel.app/api/booking/getbookingsbymemberid", {
         memberid: member.data._id,
       });
       setBookings(response.data);
@@ -41,7 +41,7 @@ function MyBookingpage() {
     setLoading(true);
     try {
       const result = (
-        await axios.post("/api/booking/cancelbooking", { bookingid, carid })
+        await axios.post("https://ev-car-hire-backend.vercel.app/api/booking/cancelbooking", { bookingid, carid })
       ).data;
       console.log(result);
       setLoading(false);
