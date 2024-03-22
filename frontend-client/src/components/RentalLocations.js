@@ -9,7 +9,7 @@ const RentalLocations = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/location/getalllocations");
+        const response = await axios.get("https://ev-car-hire-backend.vercel.app/api/location/getalllocations");
         setRentalLocations(response.data);
       } catch (error) {
         setError("Error fetching data");

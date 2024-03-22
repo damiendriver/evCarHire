@@ -7,7 +7,7 @@ const ChargePoints = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/chargepoints/chargepoints');
+        const response = await axios.get('https://ev-car-hire-backend.vercel.app/api/chargepoints/chargepoints');
         setChargePoints(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
