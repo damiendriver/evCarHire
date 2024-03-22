@@ -18,7 +18,7 @@ function Loginpage() {
 
     try {
       setloading(true);
-      const result = await axios.post("https://ev-car-hire-backend.vercel.app/api/member/login", member);
+      const result = await axios.post("https://ev-car-hire-backend.vercel.app/api/member/login", member, { withCredentials: true });
       setloading(false);
 
       // redirect successful login to vehicle display

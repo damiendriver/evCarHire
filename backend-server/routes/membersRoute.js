@@ -120,7 +120,7 @@ router.post("/forgot-password", async (req, res) => {
       expiresIn: "1d",
     });
 
-    const resetLink = `http://localhost:3000/reset-password/${member._id}/${token}`;
+    const resetLink = `https://ev-car-hire.vercel.app/reset-password/${member._id}/${token}`;
 
     // Setting up nodemailer transporter
     const transporter = nodemailer.createTransport({
