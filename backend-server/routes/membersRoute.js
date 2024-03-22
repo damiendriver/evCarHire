@@ -84,7 +84,7 @@ router.post("/login", async (req, res) => {
 
         res.cookie("token", token, {
           sameSite: 'None',
-          secure: true
+          secure: true,
         });
         res.send(hidden);
       } else {
