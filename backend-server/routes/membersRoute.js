@@ -82,7 +82,10 @@ router.post("/login", async (req, res) => {
           _id: member._id,
         };
 
-        res.cookie("token", token);
+        res.cookie("token", token, {
+          sameSite: 'None',
+          secure: true
+        });
         res.send(hidden);
       } else {
         return res
