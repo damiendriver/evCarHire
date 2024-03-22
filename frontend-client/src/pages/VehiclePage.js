@@ -26,7 +26,7 @@ function VehiclePage() {
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop().split(';').shift();
   };
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,9 +38,9 @@ function VehiclePage() {
         const response = await axios.get("https://ev-car-hire-backend.vercel.app/api/car/getallcars", {
           headers: {
             'Authorization': `Bearer ${token}`
-          } });
+          }
+        });
         setCars(response.data);
-        setMatchcars(response.data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching cars:", error);
@@ -48,7 +48,7 @@ function VehiclePage() {
         setLoading(false);
       }
     };
-
+  
     const fetchLocations = async () => {
       try {
         const response = await axios.get("https://ev-car-hire-backend.vercel.app/api/location/getalllocations");
@@ -57,10 +57,11 @@ function VehiclePage() {
         console.error("Error fetching locations:", error);
       }
     };
-
+  
     fetchData();
     fetchLocations();
   }, []);
+  
   
 
   function isCarAvailable(car, startDate, endDate) {
