@@ -15,7 +15,12 @@ const contactRoute = require("./routes/contactRoute");
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: "https://ev-car-hire.vercel.app", credentials: true }));
+
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://ev-car-hire.vercel.app'],
+  methods: ['GET', 'POST'],
+  credentials: true,
+}));
 
 app.use("/api/car", verifyToken, carsRoute);
 app.use("/api/location", locationsRoute);

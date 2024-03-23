@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 
-router.post('/contact', (req, res) => {
+router.post('/contact', async (req, res) => {
   const { name, email, message } = req.body;
 
   const transporter = nodemailer.createTransport({
@@ -23,15 +23,14 @@ router.post('/contact', (req, res) => {
     text: message,
   };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log(error);
-      res.status(500).send('Error sending email');
-    } else {
-      console.log('Email sent: ' + info.response);
-      res.status(200).send('Email sent successfully');
-    }
-  });
+  try {
+    let info = await transporter.sendMail(mailOptions);
+    console.log('Email sent: ' + info.response);
+    res.status(200).send('Email sent successfully');
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Error sending email');
+  }
 });
 
 module.exports = router;
