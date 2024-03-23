@@ -6,6 +6,7 @@ const router = express.Router();
 const Member = require("../models/member");
 const memberModel = require("../models/member");
 const nodemailer = require("nodemailer");
+require('dotenv').config();
 
 const registerSchema = Joi.object({
   name: Joi.string().required(),
