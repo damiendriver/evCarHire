@@ -3,7 +3,7 @@ import axios from "axios";
 import "antd/dist/reset.css";
 import Loading from "../components/Loading";
 import moment from "moment";
-import { DatePicker, Button } from "antd";
+import { DatePicker } from "antd";
 import Car from "../components/Car";
 
 const { RangePicker } = DatePicker;
@@ -21,26 +21,13 @@ function VehiclePage() {
   const [locations, setLocations] = useState([]);
   const [canBook, setCanBook] = useState(false); 
 
-  const getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  };
-  
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const token = getCookie('token');
-        if (!token) {
-          throw new Error('Token not found');
-        }
-        const response = await axios.get("https://ev-car-hire-backend.vercel.app/api/car/getallcars", {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
+        const response = await axios.get("https://ev-car-hire-backend.vercel.app/api/car/getallcars");
         setCars(response.data);
+        setMatchcars(response.data);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching cars:", error);
@@ -48,7 +35,7 @@ function VehiclePage() {
         setLoading(false);
       }
     };
-  
+
     const fetchLocations = async () => {
       try {
         const response = await axios.get("https://ev-car-hire-backend.vercel.app/api/location/getalllocations");
@@ -57,11 +44,10 @@ function VehiclePage() {
         console.error("Error fetching locations:", error);
       }
     };
-  
+
     fetchData();
     fetchLocations();
   }, []);
-  
   
 
   function isCarAvailable(car, startDate, endDate) {
@@ -255,5 +241,9 @@ function VehiclePage() {
 }
 
 export default VehiclePage;
+
+
+
+
 
 
