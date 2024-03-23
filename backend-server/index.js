@@ -17,10 +17,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
-app.use("/api/car", verifyToken, carsRoute);
+app.use("/api/car", carsRoute);
 app.use("/api/location", locationsRoute);
 app.use("/api/member", membersRoute);
-app.use("/api/booking", verifyToken, bookingsRoute);
+app.use("/api/booking", bookingsRoute);
 app.use("/api/chargepoints", chargepointsRoute);
 app.use("/api/contact", contactRoute);
 
