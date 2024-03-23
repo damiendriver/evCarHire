@@ -12,25 +12,25 @@ const ContactForm = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    // Clear the error for the current field when user starts typing again
     setErrors({ ...errors, [e.target.name]: "" });
   };
 
   const validateForm = () => {
     let valid = true;
     let newErrors = {};
-  
-    if (!formData.name.trim()) {
-      newErrors.name = "Name is required";
-      valid = false;
-    } else {
-      // Updated nameRegex to allow alphabetic characters and spaces
-      const nameRegex = /^[A-Za-z\s]+$/;
-      if (!nameRegex.test(formData.name)) {
-        newErrors.name = "Name must contain only letters and spaces";
-        valid = false;
-      }
-    }
-  
+
+if (!formData.name.trim()) {
+  newErrors.name = "Name is required";
+  valid = false;
+} else {
+  const nameRegex = /^[A-Za-z ]+$/;
+  if (!nameRegex.test(formData.name)) {
+    newErrors.name = "Name must contain only letters and spaces";
+    valid = false;
+  }
+}
+
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
       valid = false;
@@ -41,23 +41,22 @@ const ContactForm = () => {
         valid = false;
       }
     }
-  
+
     if (!formData.message.trim()) {
       newErrors.message = "Message is required";
       valid = false;
     }
-  
+
     setErrors(newErrors);
     return valid;
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateForm()) {
       try {
-        await axios.post("https://ev-car-hire-backend.vercel.app/api/contact/contact", formData);
+        await axios.post("/api/contact/contact", formData);
         alert("Email sent successfully!");
         setFormData({ name: "", email: "", message: "" });
       } catch (err) {
@@ -112,7 +111,7 @@ const ContactForm = () => {
               )}
             </div>
             <div>
-              <button type="submit" className="btn">Submit Enquiry</button>
+              <button type="submit" className="btn">Submit</button>
             </div>
           </form>
         </div>
