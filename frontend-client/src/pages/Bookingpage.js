@@ -118,6 +118,7 @@ function Bookingpage() {
       ) : error ? (
         <Error />
       ) : (
+        car && (
         <div className="row justify-content-center mt-5 box">
           <div className="col-md-6">
             <h1>{car.makeModel}</h1>
@@ -157,6 +158,7 @@ function Bookingpage() {
             </div>
           </div>
         </div>
+        )
       )}
     </div>
   );
