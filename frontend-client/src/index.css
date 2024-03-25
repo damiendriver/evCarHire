@@ -123,16 +123,22 @@ input , select , .ant-picker{
 }
 
 .chargepoints-list {
+  display: flex;
+  gap: 20px;
   text-align: left;
-  flex: 1;
   padding: 20px;
-  width: 50%;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .map-container {
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .map-title {
@@ -140,6 +146,17 @@ input , select , .ant-picker{
   margin-top: 20px;
   font-size: 24px;
   font-weight: bolder;
+}
+
+.rental-locations{
+  text-align: center; 
+  padding: 20px;
+  width: 80%; 
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .landing{
