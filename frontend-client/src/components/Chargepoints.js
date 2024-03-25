@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import BACKEND_URL from '../utils/BaseUrl';
 
 const ChargePoints = () => {
   const [chargePoints, setChargePoints] = useState([]);
@@ -7,7 +8,7 @@ const ChargePoints = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://ev-car-hire-backend.vercel.app/api/chargepoints/chargepoints');
+        const response = await axios.get(`${BACKEND_URL}/api/chargepoints/chargepoints`);
         setChargePoints(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);

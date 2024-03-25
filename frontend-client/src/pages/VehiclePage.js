@@ -5,6 +5,7 @@ import Loading from "../components/Loading";
 import moment from "moment";
 import { DatePicker } from "antd";
 import Car from "../components/Car";
+import BACKEND_URL from "../utils/BaseUrl";
 
 const { RangePicker } = DatePicker;
 
@@ -25,7 +26,7 @@ function VehiclePage() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("https://ev-car-hire-backend.vercel.app/api/car/getallcars");
+        const response = await axios.get(`${BACKEND_URL}/api/car/getallcars`);
         setCars(response.data);
         setMatchcars(response.data);
         setLoading(false);
@@ -38,7 +39,7 @@ function VehiclePage() {
 
     const fetchLocations = async () => {
       try {
-        const response = await axios.get("https://ev-car-hire-backend.vercel.app/api/location/getalllocations");
+        const response = await axios.get(`${BACKEND_URL}/api/location/getalllocations`);
         setLocations(response.data);
       } catch (error) {
         console.error("Error fetching locations:", error);

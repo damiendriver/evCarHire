@@ -17,10 +17,10 @@ router.post('/contact', async (req, res) => {
   });
 
   const mailOptions = {
-    from: `<${email}>`,
+    from: process.env.ZOHO_EMAIL_HERE,
     to: process.env.ZOHO_EMAIL_HERE,
     cc: email,
-    subject: 'New Enquiry from Localhost',
+    subject: 'New Enquiry from Customer',
     text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
   };
 

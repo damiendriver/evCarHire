@@ -3,6 +3,7 @@ import axios from "axios";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 import { Link } from "react-router-dom";
+import BACKEND_URL from "../utils/BaseUrl";
 
 function Loginpage() {
   const [email, setemail] = useState("");
@@ -18,7 +19,7 @@ function Loginpage() {
 
     try {
       setloading(true);
-      const result = await axios.post("https://ev-car-hire-backend.vercel.app/api/member/login", member);
+      const result = await axios.post(`${BACKEND_URL}/api/member/login`, member);
       setloading(false);
 
       // redirect successful login to vehicle display

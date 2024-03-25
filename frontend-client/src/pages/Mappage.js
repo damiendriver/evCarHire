@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ChargePoints from "../components/Chargepoints";
 import Map from "../components/Map";
+import BACKEND_URL from "../utils/BaseUrl";
 
 function Mappage() {
   const [chargePoints, setChargePoints] = useState([]);
@@ -9,7 +10,7 @@ function Mappage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://ev-car-hire-backend.vercel.app/api/chargepoints/chargepoints");
+        const response = await axios.get(`${BACKEND_URL}/api/chargepoints/chargepoints`);
         setChargePoints(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);

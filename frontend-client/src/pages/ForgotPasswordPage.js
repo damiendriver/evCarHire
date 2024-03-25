@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+import BACKEND_URL from "../utils/BaseUrl";
 
 function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ function ForgotPasswordPage() {
 
     try {
       setLoading(true);
-      const result = await axios.post("https://ev-car-hire-backend.vercel.app/api/member/forgot-password", member);
+      const result = await axios.post(`${BACKEND_URL}/api/member/forgot-password`, member);
       setLoading(false);
 
       // Assuming result.data contains the necessary response data

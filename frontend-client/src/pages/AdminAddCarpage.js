@@ -4,6 +4,7 @@ import { Form, Input, InputNumber, Button, Select, Upload } from "antd";
 import Swal from "sweetalert2";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+import BACKEND_URL from "../utils/BaseUrl";
 
 const { Option } = Select;
 
@@ -33,7 +34,7 @@ function AdminAddCarpage() {
     const fetchLocations = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("https://ev-car-hire-backend.vercel.app/api/location/getalllocations");
+        const response = await axios.get(`${BACKEND_URL}/api/location/getalllocations`);
         setLocations(response.data);
         setLoading(false);
       } catch (error) {
@@ -62,7 +63,7 @@ function AdminAddCarpage() {
         formData.append("imageFiles", file.originFileObj);
       });
 
-      const response = await axios.post("https://ev-car-hire-backend.vercel.app/api/car/addcar", formData, {
+      const response = await axios.post(`${BACKEND_URL}/api/car/addcar`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           "X-CSRF-TOKEN": getCSRFToken(),

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import BACKEND_URL from "../utils/BaseUrl";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -56,7 +57,7 @@ if (!formData.name.trim()) {
 
     if (validateForm()) {
       try {
-        await axios.post("/api/contact/contact", formData);
+        await axios.post(`${BACKEND_URL}/api/contact/contact`, formData);
         alert("Email sent successfully!");
         setFormData({ name: "", email: "", message: "" });
       } catch (err) {

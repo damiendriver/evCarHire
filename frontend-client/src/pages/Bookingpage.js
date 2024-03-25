@@ -7,6 +7,7 @@ import moment from "moment";
 import StripeCheckout from "react-stripe-checkout";
 import Swal from "sweetalert2";
 import { formatPrice } from "../utils/FormatPrice";
+import BACKEND_URL from "../utils/BaseUrl";
 
 function Bookingpage() {
   const { carid, pickupdate, returndate } = useParams();
@@ -26,7 +27,7 @@ function Bookingpage() {
       try {
         setLoading(true);
         const data = (
-          await axios.post("https://ev-car-hire-backend.vercel.app/api/car/getcarbyid", { carid })
+          await axios.post(`${BACKEND_URL}/api/car/getcarbyid`, { carid })
         ).data;
         setCar(data);
 
@@ -49,7 +50,7 @@ function Bookingpage() {
 
     const fetchLocations = async () => {
       try {
-        const response = await axios.get("https://ev-car-hire-backend.vercel.app/api/location/getlocationbyname");
+        const response = await axios.get(`${BACKEND_URL}/api/location/getlocationbyname`);
         const locations = response.data;
         const map = {};
         locations.forEach((location) => {
@@ -86,7 +87,7 @@ function Bookingpage() {
     try {
       setLoading(true);
       console.log("Sending POST request to /api/booking/bookcar...");
-      const result = await axios.post("https://ev-car-hire-backend.vercel.app/api/booking/bookcar", bookingDetails);
+      const result = await axios.post(`${BACKEND_URL}/api/booking/bookcar`, bookingDetails);
       console.log("Response:", result.data);
       setLoading(false);
       Swal.fire({

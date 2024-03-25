@@ -3,6 +3,7 @@ import axios from "axios";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 import Success from "../components/Success";
+import BACKEND_URL from "../utils/BaseUrl";
 
 function Registerpage() {
   const [name, setname] = useState("");
@@ -24,7 +25,7 @@ function Registerpage() {
 
       try {
         setloading(true);
-        const result = await axios.post("https://ev-car-hire-backend.vercel.app/api/member/register", member);
+        const result = await axios.post(`${BACKEND_URL}/api/member/register`, member);
         setloading(false);
         setsuccess(true);
 

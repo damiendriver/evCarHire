@@ -5,6 +5,7 @@ import { Tag } from 'antd';
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 import { formatPrice } from "../utils/FormatPrice";
+import BACKEND_URL from "../utils/BaseUrl";
 
 function MyBookingpage() {
   const [bookings, setBookings] = useState([]);
@@ -17,7 +18,7 @@ function MyBookingpage() {
     setError("");
     setLoading(true);
     try {
-      const response = await axios.post("https://ev-car-hire-backend.vercel.app/api/booking/getbookingsbymemberid", {
+      const response = await axios.post(`${BACKEND_URL}/api/booking/getbookingsbymemberid`, {
         memberid: member.data._id,
       });
       setBookings(response.data);
@@ -41,7 +42,7 @@ function MyBookingpage() {
     setLoading(true);
     try {
       const result = (
-        await axios.post("https://ev-car-hire-backend.vercel.app/api/booking/cancelbooking", { bookingid, carid })
+        await axios.post(`${BACKEND_URL}/api/booking/cancelbooking`, { bookingid, carid })
       ).data;
       console.log(result);
       setLoading(false);

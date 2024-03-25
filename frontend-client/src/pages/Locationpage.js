@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Map from "../components/Map";
 import RentalLocations from "../components/RentalLocations";
+import BACKEND_URL from "../utils/BaseUrl";
 
 function Locationpage() {
   const [rentalLocations, setRentalLocations] = useState([]);
@@ -9,7 +10,7 @@ function Locationpage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://ev-car-hire-backend.vercel.app/api/location/getalllocations");
+        const response = await axios.get(`${BACKEND_URL}/api/location/getalllocations`);
         setRentalLocations(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);

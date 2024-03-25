@@ -4,6 +4,7 @@ import { Table, Tag } from "antd";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 import { formatPrice } from "../utils/FormatPrice";
+import BACKEND_URL from "../utils/BaseUrl";
 
 function AdminBookingpage() {
   const [bookings, setBookings] = useState([]);
@@ -42,7 +43,7 @@ function AdminBookingpage() {
     setError("");
     setLoading(true);
     try {
-      const response = await axios.post("https://ev-car-hire-backend.vercel.app/api/booking/getallbookings");
+      const response = await axios.post(`${BACKEND_URL}/api/booking/getallbookings`);
       setBookings(response.data);
     } catch (error) {
       console.log(error);

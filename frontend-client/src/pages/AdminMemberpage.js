@@ -3,6 +3,7 @@ import axios from "axios";
 import { Table, Tag } from "antd";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+import BACKEND_URL from "../utils/BaseUrl";
 
 function AdminMemberpage() {
   const [members, setMembers] = useState([]);
@@ -34,7 +35,7 @@ function AdminMemberpage() {
     setError("");
     setLoading(true);
     try {
-      const response = (await axios.post("https://ev-car-hire-backend.vercel.app/api/member/getallmembers"));
+      const response = (await axios.post(`${BACKEND_URL}/api/member/getallmembers`));
       setMembers(response.data);
     } catch (error) {
       console.log(error);
