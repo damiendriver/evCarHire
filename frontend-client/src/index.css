@@ -236,3 +236,24 @@ input , select , .ant-picker{
   font-size: 48px; 
 }
 
+/* Admin pages */
+
+.admin-carpage-container {
+  padding: 20px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.responsive-table {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .responsive-table .ant-table-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

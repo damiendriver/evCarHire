@@ -105,6 +105,19 @@ router.post("/getallcars", async (req, res) => {
       return res.status(500).json({ message: "Internal server error" });
     }
   });  
+
+
+  // update car price
+
+  router.put("/:id", async (req, res) => {
+    try {
+      const updateCarPrice = await Car.findByIdAndUpdate(req.params.id, { $set: req.body}, {new: true})
+      res.status(200).json(updateCarPrice);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+  });  
   
 
 module.exports = router;
