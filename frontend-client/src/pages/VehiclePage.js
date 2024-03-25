@@ -75,11 +75,12 @@ function VehiclePage() {
     return current && current < moment().endOf("day");
   }
 
+
   function filterByDate(dates) {
     try {
       if (Array.isArray(dates) && dates.length === 2) {
-        const startDate = moment(dates[0].$d).format("YYYY-MM-DD");
-        const endDate = moment(dates[1].$d).format("YYYY-MM-DD");
+        const startDate = moment(dates[0].$d).format("YYYY-MM-DD HH:mm");
+        const endDate = moment(dates[1].$d).format("YYYY-MM-DD HH:mm");
   
         setPickupdate(startDate);
         setReturndate(endDate);
@@ -187,11 +188,12 @@ function VehiclePage() {
         </div>
         <div className="col-md-4">
           <RangePicker
-            format="YYYY-MM-DD"
+            showTime={{ format: 'HH:mm', minuteStep: 15, }}
+            format="YYYY-MM-DD HH:mm"
             onChange={filterByDate}
             disabledDate={disabledDate}
-            disabled={!selectedLocation} // Disable date picker until location is selected
-            allowEmpty={!selectedLocation} // Allow empty only when location is not selected
+            disabled={!selectedLocation}
+            allowEmpty={!selectedLocation}
           />
         </div>
         <div className="col-md-2">

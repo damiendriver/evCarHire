@@ -31,13 +31,24 @@ function Bookingpage() {
         ).data;
         setCar(data);
 
-        const days = moment(returndate, "YYYY-MM-DD").diff(
-          moment(pickupdate, "YYYY-MM-DD"),
+        const days = moment(returndate, "YYYY-MM-DD HH:mm").diff(
+          moment(pickupdate, "YYYY-MM-DD HH:mm"),
           "days"
         );
-        setTotalDays(days); // Corrected
+        const hours = moment(returndate, "YYYY-MM-DD HH:mm").diff(
+          moment(pickupdate, "YYYY-MM-DD HH:mm"),
+          "hours"
+        ) % 24;
+        
+        let totalDays = days;
+        
+        // If the hours are more than 2, round up to the next day
+        if (hours >= 2) {
+          totalDays++;
+        }
+        setTotalDays(totalDays); // Corrected
 
-        setTotalPrice(data.priceAmount * days);
+        setTotalPrice(data.priceAmount * totalDays);
         setLoading(false);
         console.log(data);
       } catch (error) {
