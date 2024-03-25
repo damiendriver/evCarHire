@@ -98,6 +98,7 @@ function MyBookingpage() {
                 <b>Booking Status:</b>{" "}
                 {booking.status === "cancelled" ?  <Tag color="red">Cancelled</Tag> : <Tag color="green">Confirmed</Tag>}
               </p>
+              
 
               {booking.status !== "cancelled" && (
                 <div className="text-right">
