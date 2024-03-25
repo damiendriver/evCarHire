@@ -67,8 +67,10 @@ router.post("/getallcars", async (req, res) => {
       const uploadPromises = imageFiles.map(async (image) => {
         const b64 = Buffer.from(image.buffer).toString("base64");
         let dataURI = "data:" + image.mimetype + ";base64," + b64;
-        const uploadedImage = await cloudinary.uploader.upload(dataURI);
-        return uploadedImage.url;
+        const uploadedImage = await cloudinary.uploader.upload(dataURI, {
+          folder: "evCarHire/",
+        });
+        return uploadedImage.secure_url;
       });
   
       const imageURLs = await Promise.all(uploadPromises);
