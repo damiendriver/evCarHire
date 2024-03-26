@@ -215,7 +215,7 @@ function VehiclePage() {
             <option value="all">All</option>
             <option value="full electric">Full Electric</option>
             <option value="hybrid">Hybrid</option>
-            <option value="plug-in hybrid">Plug-in-Hybrid</option>
+            <option value="plug-in-hybrid">Plug-in-Hybrid</option>
           </select>
         </div>
       </div>
