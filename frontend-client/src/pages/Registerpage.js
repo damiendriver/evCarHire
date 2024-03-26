@@ -13,49 +13,87 @@ function Registerpage() {
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState(false);
   const [success, setsuccess] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   async function register() {
-    if (password === confirm) {
-      const member = {
-        name,
-        email,
-        password,
-        confirm,
-      };
+    if (name.trim() === "" || email.trim() === "" || password.trim() === "") {
+      setErrorMsg("Please fill in all fields.");
+      seterror(true);
+      return;
+    }
 
-      try {
-        setloading(true);
-        const result = await axios.post(`${BACKEND_URL}/api/member/register`, member);
-        setloading(false);
-        setsuccess(true);
+    if (!validateEmail(email)) {
+      setErrorMsg("Please enter a valid email address.");
+      seterror(true);
+      return;
+    }
 
-        setTimeout(() => {
-          window.location.href = "/login";
-        }, 1000);
+    if (password.length < 6) {
+      setErrorMsg("Password must be at least 6 characters long.");
+      seterror(true);
+      return;
+    }
 
-        // Clear input fields
-        setname("");
-        setemail("");
-        setpassword("");
-        setconfirm("");
+    if (password !== confirm) {
+      setErrorMsg("Passwords do not match. Please double check and try again.");
+      seterror(true);
+      return;
+    }
 
-        console.log(result.data);
-      } catch (error) {
-        console.log(error);
-        setloading(false);
-        seterror(true);
+    const member = {
+      name,
+      email,
+      password,
+      confirm,
+    };
+
+    try {
+      setloading(true);
+      const result = await axios.post(
+        `${BACKEND_URL}/api/member/register`,
+        member
+      );
+      setloading(false);
+      setsuccess(true);
+
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1000);
+
+      // Clear input fields
+      setname("");
+      setemail("");
+      setpassword("");
+      setconfirm("");
+
+      console.log(result.data);
+    } catch (error) {
+      console.log(error.response.data);
+      setloading(false);
+      seterror(true);
+      if (error.response && error.response.data && error.response.data.error) {
+        setErrorMsg(error.response.data.error);
+      } else {
+        setErrorMsg("An unexpected error occurred. Please try again later.");
       }
-    } else {
-      alert("Passwords do not match. Please double check and try again.");
     }
   }
 
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  };
+
+  const validateName = (input) => {
+    const re = /^[a-zA-Z\s]+$/;
+    return re.test(input);
+  };
   return (
     <div className="m-5">
       <div className="row justify-content-center mt-5">
         <div className="col-md-5 box">
           {loading && <Loading />}
-          {error && <Error />}
+          {error && <Error message={errorMsg} />}
           {success && <Success message="Registration Successful" />}
           <div>
             <h1 style={{ textAlign: "center" }}>Register</h1>
@@ -65,7 +103,9 @@ function Registerpage() {
               placeholder="Name"
               value={name}
               onChange={(e) => {
-                setname(e.target.value);
+                if (validateName(e.target.value) || e.target.value === "") {
+                  setname(e.target.value);
+                }
               }}
             />
             <input
