@@ -10,7 +10,7 @@ function Steps() {
             <i id="custom-icon" className="bi bi-1-square-fill"></i>
             <div className="card-body">
               <p className="card-text">
-                <strong>Join Today.</strong><br /> Some quick example text to build on the card title
+                <strong>Join Today.</strong><br /> Register an Account.
               </p>
             </div>
           </div>
@@ -21,7 +21,7 @@ function Steps() {
             <i id="custom-icon" className="bi bi-2-square-fill"></i>
             <div className="card-body">
               <p className="card-text">
-              <strong>Book a Car.</strong><br /> Some quick example text to build on the card title
+              <strong>Book a Car.</strong><br /> Login and make a booking.
               </p>
             </div>
           </div>
@@ -32,7 +32,7 @@ function Steps() {
             <i id="custom-icon" className="bi bi-3-square-fill"></i>
             <div className="card-body">
               <p className="card-text">
-              <strong>Drive in Style.</strong><br /> Some quick example text to build on the card title
+              <strong>Drive in Style.</strong><br /> Arrive at your selected rental location to collect your car.
               </p>
             </div>
           </div>
@@ -43,7 +43,7 @@ function Steps() {
             <i id="custom-icon" className="bi bi-4-square-fill"></i>
             <div className="card-body">
               <p className="card-text">
-              <strong>Return.</strong><br /> Some quick example text to build on the card title
+              <strong>Return.</strong><br /> Drop off the car and close the rental.
               </p>
             </div>
           </div>
