@@ -76,7 +76,7 @@ const Map = ({ chargePoints, rentalLocations }) => {
             <h3>${location.name}</h3>
             <p><strong>Address:</strong> ${location.town}</p>
             <p><strong>Eircode:</strong> ${location.eircode}</p>
-            <p><strong>Opening Hours:</strong> ${location.openHours}</p>
+            <p><strong>Cars in Fleet:</strong> ${location.carsAvailable.length}</p>
           `);
       });
     }

@@ -41,7 +41,7 @@ const RentalLocations = () => {
               <strong>Opening Hours:</strong> {location.openHours}
             </p>
             <p>
-              <strong>Cars Available:</strong> {location.carsAvailable.length}
+              <strong>Cars in Location Fleet:</strong> {location.carsAvailable.length}
             </p>
           </li>
         ))}

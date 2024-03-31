@@ -49,6 +49,11 @@ router.delete("/deletecar/:id", async(req, res) => {
     if (!deletedCarGroup) {
       return res.status(404).json({ message: "Car not found." });
     }
+
+    await Location.updateMany(
+      { carsAvailable: req.params.id },
+      { $pull: { carsAvailable: req.params.id } }
+    );
     res.status(200).json({ message: "Car Group has been removed.", deletedCarGroup });
   } catch (error) {
     console.error(error);

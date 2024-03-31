@@ -6,6 +6,7 @@ const router = express.Router();
 const Member = require("../models/member");
 const memberModel = require("../models/member");
 const nodemailer = require("nodemailer");
+const verifyToken = require("../utils/verify_token");
 require("dotenv").config();
 
 const registerSchema = Joi.object({
@@ -18,6 +19,10 @@ const registerSchema = Joi.object({
 const loginSchema = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(4).required(),
+});
+
+router.get("/checkauth", verifyToken,  async (req, res,next) => {
+  res.send("hello, i see your token")
 });
 
 router.post("/register", async (req, res) => {
@@ -117,7 +122,9 @@ router.delete("/deletemember/:id", async (req, res) => {
     if (!deletedMember) {
       return res.status(404).json({ message: "Member not found." });
     }
-    res.status(200).json({ message: "Member has been removed.", deletedMember });
+    res
+      .status(200)
+      .json({ message: "Member has been removed.", deletedMember });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal Server Error" });
@@ -138,7 +145,7 @@ router.get("/getmember/:id", async (req, res) => {
   try {
     const memberId = req.params.id;
     const member = await Member.findById(memberId);
-    
+
     if (!member) {
       return res.status(404).json({ message: "Member not found" });
     }
@@ -150,6 +157,28 @@ router.get("/getmember/:id", async (req, res) => {
   }
 });
 
+router.post("/resetpassword/:id", async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const updatedMember = await memberModel.findByIdAndUpdate(
+      { _id: id },
+      { password: hashedPassword }
+    );
+
+    if (!updatedMember) {
+      return res.status(404).json({ status: "Member not found" });
+    }
+
+    return res.status(200).json({ status: "Success" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ status: "Error updating password", error: error.message });
+  }
+});
 
 router.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
@@ -229,9 +258,7 @@ router.post("/reset-password/:id/:token", async (req, res) => {
           .json({ status: "Error updating password", error: error.message });
       }
     }
-  });  
-  
-
+  });
 });
 
 module.exports = router;
