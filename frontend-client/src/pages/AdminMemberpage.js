@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Table, Tag } from "antd";
+import { Table, Tag, Button, Space, message, Modal } from "antd";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 import BACKEND_URL from "../utils/BaseUrl";
 
 function AdminMemberpage() {
   const [members, setMembers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const columns = [
@@ -29,30 +29,68 @@ function AdminMemberpage() {
         </>
       ),
     },
+    {
+      title: "Delete Member",
+      key: "delete",
+      render: (text, record) => (
+        <Space size="middle">
+          <Button type="primary" onClick={() => confirmDeleteMember(record._id)}>
+            Delete
+          </Button>
+        </Space>
+      ),
+    },
   ];
 
   async function getallmembers() {
     setError("");
     setLoading(true);
     try {
-      const response = (await axios.post(`${BACKEND_URL}/api/member/getallmembers`));
+      const response = await axios.post(`${BACKEND_URL}/api/member/getallmembers`);
       setMembers(response.data);
     } catch (error) {
-      console.log(error);
-      setError(error);
+      console.error("Error fetching members:", error);
+      setError("Error fetching members. Please try again later.");
     }
     setLoading(false);
   }
+
+  async function deleteMember(_id) {
+    setError("");
+    try {
+      console.log("Deleting member with ID:", _id);
+      await axios.delete(`${BACKEND_URL}/api/member/deletemember/${_id}`);
+      setMembers((prevMembers) =>
+        prevMembers.filter((member) => member._id !== _id)
+      );
+      message.success("Member deleted successfully");
+    } catch (error) {
+      console.error("Error deleting member:", error);
+      setError("Error deleting member. Please try again later.");
+    }
+  }
+
+  const confirmDeleteMember = (_id) => {
+    Modal.confirm({
+      title: "Confirm Deletion",
+      content: "Are you sure you want to delete this member?",
+      okText: "Yes",
+      cancelText: "No",
+      onOk: () => deleteMember(_id),
+    });
+  };
+
   useEffect(() => {
-    getallmembers();
+    setLoading(true);
+    getallmembers().finally(() => setLoading(false));
   }, []);
 
   return (
     <div className="row">
       {loading ? (
-         <Loading></Loading>
-      ) : error.length > 0 ? (
-        <Error msg={error}></Error>
+        <Loading />
+      ) : error ? (
+        <Error msg={error} />
       ) : (
         <div className="col-md-12">
           <Table columns={columns} dataSource={members} rowKey="_id" />
@@ -63,3 +101,4 @@ function AdminMemberpage() {
 }
 
 export default AdminMemberpage;
+

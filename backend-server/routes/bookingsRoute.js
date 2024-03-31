@@ -76,7 +76,7 @@ router.post("/bookcar", async (req, res) => {
         const mailOptions = {
           from: process.env.ZOHO_EMAIL_HERE,
           to: token.email,
-          subject: "Booking Confirmation",
+          subject: "EV Car Hire Booking Confirmation",
           html: `
     <p>Your booking for ${car.makeModel} has been confirmed.</p>
     <p>Pickup Date: ${pickupdate}</p>

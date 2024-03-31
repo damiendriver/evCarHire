@@ -6,7 +6,7 @@ const router = express.Router();
 const Member = require("../models/member");
 const memberModel = require("../models/member");
 const nodemailer = require("nodemailer");
-require('dotenv').config();
+require("dotenv").config();
 
 const registerSchema = Joi.object({
   name: Joi.string().required(),
@@ -84,7 +84,7 @@ router.post("/login", async (req, res) => {
         };
 
         res.cookie("token", token, {
-          sameSite: 'None',
+          sameSite: "None",
           secure: true,
         });
         res.send(hidden);
@@ -110,6 +110,46 @@ router.post("/getallmembers", async (req, res) => {
     return res.status(400).json({ message: error });
   }
 });
+
+router.delete("/deletemember/:id", async (req, res) => {
+  try {
+    const deletedMember = await Member.findByIdAndDelete(req.params.id);
+    if (!deletedMember) {
+      return res.status(404).json({ message: "Member not found." });
+    }
+    res.status(200).json({ message: "Member has been removed.", deletedMember });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+router.get("/getallmembers", async (req, res) => {
+  try {
+    const members = await Member.find();
+    res.send(members);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ message: error });
+  }
+});
+
+router.get("/getmember/:id", async (req, res) => {
+  try {
+    const memberId = req.params.id;
+    const member = await Member.findById(memberId);
+    
+    if (!member) {
+      return res.status(404).json({ message: "Member not found" });
+    }
+
+    res.send(member);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ message: error });
+  }
+});
+
 
 router.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
@@ -189,7 +229,9 @@ router.post("/reset-password/:id/:token", async (req, res) => {
           .json({ status: "Error updating password", error: error.message });
       }
     }
-  });
+  });  
+  
+
 });
 
 module.exports = router;
