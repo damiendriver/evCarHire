@@ -46,7 +46,7 @@ function Bookingpage() {
         if (hours >= 2) {
           totalDays++;
         }
-        setTotalDays(totalDays); // Corrected
+        setTotalDays(totalDays);
 
         setTotalPrice(data.priceAmount * totalDays);
         setLoading(false);
@@ -103,7 +103,7 @@ function Bookingpage() {
       setLoading(false);
       Swal.fire({
         title: "Booking Confirmed",
-        text: "You were Successful",
+        text: "Your Car is Reserved",
         icon: "success",
         confirmButtonText: "OK",
       }).then((result) => {

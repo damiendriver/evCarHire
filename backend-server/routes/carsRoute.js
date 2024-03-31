@@ -43,6 +43,19 @@ router.post("/getcarbyid", async(req, res) => {
     }
 });
 
+router.delete("/deletecar/:id", async(req, res) => {
+  try {
+    const deletedCarGroup = await Car.findByIdAndDelete(req.params.id);
+    if (!deletedCarGroup) {
+      return res.status(404).json({ message: "Car not found." });
+    }
+    res.status(200).json({ message: "Car Group has been removed.", deletedCarGroup });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 router.post("/getallcars", async (req, res) => {
     try {
       const cars = await Car.find();

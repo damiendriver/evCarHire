@@ -65,10 +65,12 @@ function AdminBookingpage() {
         <Error msg={error}></Error>
       ) : (
         <div className="col-md-12">
+        <div className="table-container">
         {Array.isArray(bookings) && bookings.length ? (
           <h3>Total Bookings: {bookings.length}</h3>
         ) : null}
         <Table columns={columns} dataSource={bookings} rowKey="_id" />
+      </div>
       </div>
     )}
   </div>

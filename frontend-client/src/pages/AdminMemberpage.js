@@ -34,7 +34,7 @@ function AdminMemberpage() {
       key: "delete",
       render: (text, record) => (
         <Space size="middle">
-          <Button type="primary" onClick={() => confirmDeleteMember(record._id)}>
+          <Button type="primary" danger onClick={() => confirmDeleteMember(record._id)}>
             Delete
           </Button>
         </Space>
@@ -93,10 +93,13 @@ function AdminMemberpage() {
         <Error msg={error} />
       ) : (
         <div className="col-md-12">
+        <div className="table-container">
           <Table columns={columns} dataSource={members} rowKey="_id" />
+        </div>
         </div>
       )}
     </div>
+
   );
 }
 
