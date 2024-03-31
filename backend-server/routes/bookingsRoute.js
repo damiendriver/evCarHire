@@ -5,6 +5,7 @@ const Car = require("../models/car");
 require("dotenv").config();
 const { v4: uuidv4 } = require("uuid");
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
+const nodemailer = require("nodemailer");
 
 router.post("/bookcar", async (req, res) => {
   console.log(req.body);
@@ -62,15 +63,53 @@ router.post("/bookcar", async (req, res) => {
 
         await carstatus.save();
 
-        return res.status(200).send("Payment Successful. Your car is booked.");
-      } catch (error) {
-        return res.status(400).json({ error });
-      }
-    }
+        const transporter = nodemailer.createTransport({
+          host: "smtp.zoho.eu",
+          port: 465,
+          secure: true,
+          auth: {
+            user: process.env.ZOHO_EMAIL_HERE,
+            pass: process.env.ZOHO_PASSWORD_HERE,
+          },
+        });
 
-    return res.status(400).send("Payment was not successfil. Please try again");
+        const mailOptions = {
+          from: process.env.ZOHO_EMAIL_HERE,
+          to: token.email,
+          subject: "Booking Confirmation",
+          html: `
+    <p>Your booking for ${car.makeModel} has been confirmed.</p>
+    <p>Pickup Date: ${pickupdate}</p>
+    <p>Return Date: ${returndate}</p>
+    <p>Total Price: ${totalprice} EUR</p>
+    <img src="${car.imageURLs[0]}" alt="Car Image" style="max-width: 50%;" />
+    <p>Thank you for choosing our service.</p>
+    <p>Best Regards,<br/>EV Car Hire</p>
+  `,
+        };
+
+        try {
+          let info = await transporter.sendMail(mailOptions);
+          console.log("Email sent: " + info.response);
+          return res
+            .status(200)
+            .send("Payment Successful. Your car is booked.");
+        } catch (error) {
+          console.log(error);
+          return res.status(500).send("Error sending email");
+        }
+      } catch (error) {
+        return res
+          .status(400)
+          .json({ error: "Error creating booking or updating car status" });
+      }
+    } else {
+      return res
+        .status(400)
+        .send("Payment was not successful. Please try again");
+    }
   } catch (error) {
-    return res.status(400).json({ error });
+    return res.status(400).json({ error: "Payment error" });
   }
 });
 

@@ -33,9 +33,9 @@ function NavBar() {
               <NavItem link="/home" text="Home" active />
               {!member && <NavItem link="/register" text="Join For Free" />}
               {member && <NavItem link="/vehicle" text="Vehicle Options" />}
-              <NavItem link="/about" text="About EV Cars" />
               <NavItem link="/map" text="Charge Point Map" />
               <NavItem link="location" text="Hire Locations" />
+              <NavItem link="/about" text="About" />
               <NavItem link="terms" text="Terms" />
             </ul>
 

@@ -257,3 +257,8 @@ input , select , .ant-picker{
     text-overflow: ellipsis;
   }
 }
+
+.emailLink , .contactLink{
+  color: #ffffff;
+  font-size: 1.5rem;
+}

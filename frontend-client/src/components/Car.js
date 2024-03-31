@@ -45,10 +45,10 @@ function Car({ car, pickupdate, returndate, canBook }) {
             ))}
           </Carousel>
           <b>
-            <p>Vehicle Acriss: {car.acriss}</p>
-            <p>Vehicle Group: {car.carGroup}</p>
             <p>Vehicle Battery: {car.batteryType}</p>
             <p>Price Per Day: {formatPrice(car.priceAmount)}</p>
+            <p>Free Charging Included.</p>
+            <p>50 Kilometres Included, 0.17 EUR Each Extra Kilometre</p>
           </b>
         </Modal.Body>
         <Modal.Footer>

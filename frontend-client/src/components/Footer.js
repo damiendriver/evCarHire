@@ -6,8 +6,8 @@ function Footer() {
 
   return (
     <footer>
-      <p>Email us at: <a href={`mailto:${emailAddress}`}>{emailAddress}</a></p>
-      <p>Visit our <Link to="/contact">contact page</Link> to reach us.</p>
+      <p>Email us at: <a className="emailLink" href={`mailto:${emailAddress}`}>{emailAddress}</a></p>
+      <p>Visit our <Link to="/contact" className="contactLink">contact page</Link> to reach us.</p>
     </footer>
   );
 }
