@@ -20,25 +20,25 @@ code {
 }
 
 .navbar-brand{
-  color: white !important;
+  color: #555555 !important;
   font-weight: bold;
   font-size: 2rem;
 }
 
 .nav-link{
-  color: white;
+  color: #555555;
   font-weight: bold;
   font-size: 1.25rem;
 }
 
 .nav-link:hover{
   background-color: white;
-  color: #02000D;
+  color: #555555;
   font-weight: bold;
 }
 
 .navbar-toggler {
-  color: #02000D;
+  color: #555555;
   background-color: white;
 }
 
@@ -50,13 +50,13 @@ code {
 
 .btn{
   background-color: #22F291 !important;
-  color: #02000D !important;
+  color: #555555 !important;
   box-shadow: none !important;
 }
 
 .btnLogin{
   background-color: #ffffff !important;
-  color: #02000D !important;
+  color: #555555 !important;
   box-shadow: none !important;
 }
 
@@ -88,7 +88,7 @@ input , select , .ant-picker{
 
 .dropdown-item{
   background-color: #22F291 !important;
-  color: #02000D !important;
+  color: #555555 !important;
 }
 
 .ant-picker-input input{
@@ -98,7 +98,7 @@ input , select , .ant-picker{
 
 .ant-table-thead .ant-table-cell {
   background-color: #22F291 !important;
-  color: white !important;
+  color: #555555 !important;
   font-weight: bold !important;
 }
 
@@ -192,7 +192,7 @@ input , select , .ant-picker{
 
 .btnHome{
   background-color: #22F291;
-  color: white;
+  color: #555555;
   box-shadow: none;
   border-radius: 50%;
   width: 300px;
@@ -259,6 +259,6 @@ input , select , .ant-picker{
 }
 
 .emailLink , .contactLink{
-  color: #ffffff;
+  color: #555555;
   font-size: 1.5rem;
 }
